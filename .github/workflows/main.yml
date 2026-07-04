@@ -1,0 +1,623 @@
+name: Build Zeeshan Audio Official Pro App
+
+on:
+  push:
+    branches: [ "main" ]
+  workflow_dispatch:
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    steps:
+      - name: 1. Checkout Code
+        uses: actions/checkout@v4
+
+      - name: 2. Set up JDK 17
+        uses: actions/setup-java@v4
+        with:
+          java-version: '17'
+          distribution: 'temurin'
+
+      - name: 3. Create Android Directory Structure
+        run: |
+          mkdir -p app/src/main/java/com/zeeshan/audio/engine
+          mkdir -p app/src/main/java/com/zeeshan/audio/utils
+          mkdir -p app/src/main/res/values
+          mkdir -p app/src/main/res/layout
+          mkdir -p app/src/main/res/drawable
+
+      - name: 4. Design Premium Black-Green-White Identity & Vectors
+        run: |
+          # ऐप का नाम और डिफ़ॉल्ट स्ट्रिंग्स
+          cat << 'EOF' > app/src/main/res/values/strings.xml
+          <?xml version="1.0" encoding="utf-8"?>
+          <resources>
+              <string name="app_name">जीशान ऑडियो</string>
+          </resources>
+          EOF
+
+          # स्टूडियो डार्क, मैट्रिक्स ग्रीन और प्योर वाइट कलर्स का प्रीमियम मिश्रण
+          cat << 'EOF' > app/src/main/res/values/colors.xml
+          <?xml version="1.0" encoding="utf-8"?>
+          <resources>
+              <color name="studio_black">#0A0F0D</color>
+              <color name="matrix_green">#00C853</color>
+              <color name="pure_white">#FFFFFFFF</color>
+              <color name="surface_dark_card">#121815</color>
+              <color name="text_secondary_muted">#A0AAB2</color>
+              <color name="stop_btn_gray">#2A312E</color>
+          </resources>
+          EOF
+
+          # थीम क्रैश प्रिवेंशन फ़ाइल
+          cat << 'EOF' > app/src/main/res/values/themes.xml
+          <?xml version="1.0" encoding="utf-8"?>
+          <resources>
+              <style name="Theme.ZeeshanAudio" parent="Theme.MaterialComponents.DayNight.NoActionBar">
+                  <item name="colorPrimary">@color/matrix_green</item>
+                  <item name="colorSecondary">@color/pure_white</item>
+                  <item name="android:windowBackground">@color/studio_black</item>
+              </style>
+          </resources>
+          EOF
+
+          # अलजेब्रा और ज्योमेट्री द्वारा निर्मित 'Z + Audio Wave' लोगो (काला, हरा, सफेद मिश्रण)
+          cat << 'EOF' > app/src/main/res/drawable/app_icon.xml
+          <?xml version="1.0" encoding="utf-8"?>
+          <vector xmlns:android="http://schemas.android.com/apk/res/android"
+              android:width="512dp"
+              android:height="512dp"
+              android:viewportWidth="100"
+              android:viewportHeight="100">
+
+              <path
+                  android:pathData="M50,50m-46,0a46,46 0,1 1,92 0a46,46 0,1 1,-92 0"
+                  android:fillColor="#0A0F0D"/>
+
+              <path
+                  android:pathData="M50,50m-44,0a44,44 0,1 1,88 0a44,44 0,1 1,-88 0"
+                  android:strokeColor="#00C853"
+                  android:strokeWidth="2.5"
+                  android:fillColor="#00000000"/>
+              <path
+                  android:pathData="M50,50m-41,0a41,41 0,1 1,82 0a41,41 0,1 1,-82 0"
+                  android:strokeColor="#FFFFFF"
+                  android:strokeWidth="0.8"
+                  android:fillColor="#00000000"/>
+
+              <path
+                  android:pathData="M34,24 L66,24 L66,31 L45,53 L66,53 L66,60 L34,60 L34,53 L55,31 L34,31 Z"
+                  android:fillColor="#FFFFFF"
+                  android:strokeColor="#00C853"
+                  android:strokeWidth="1"/>
+
+              <path
+                  android:pathData="M50,67 L50,83"
+                  android:strokeColor="#FFFFFF"
+                  android:strokeWidth="3.5"
+                  android:strokeLineCap="round"/>
+              <path
+                  android:pathData="M43,70 L43,80"
+                  android:strokeColor="#00C853"
+                  android:strokeWidth="3"
+                  android:strokeLineCap="round"/>
+              <path
+                  android:pathData="M57,70 L57,80"
+                  android:strokeColor="#00C853"
+                  android:strokeWidth="3"
+                  android:strokeLineCap="round"/>
+              <path
+                  android:pathData="M36,73 L36,77"
+                  android:strokeColor="#FFFFFF"
+                  android:strokeWidth="2.5"
+                  android:strokeLineCap="round"/>
+              <path
+                  android:pathData="M64,73 L64,77"
+                  android:strokeColor="#FFFFFF"
+                  android:strokeWidth="2.5"
+                  android:strokeLineCap="round"/>
+          </vector>
+          EOF
+
+          # इनपुट फील्ड के लिए मैट्रिक्स ग्रीन ग्लोइंग बॉर्डर डार्क बैकग्राउंड के साथ
+          cat << 'EOF' > app/src/main/res/drawable/neon_input_border.xml
+          <?xml version="1.0" encoding="utf-8"?>
+          <shape xmlns:android="http://schemas.android.com/apk/res/android">
+              <solid android:color="#121815"/>
+              <corners android:radius="14dp"/>
+              <stroke android:width="2dp" android:color="#00C853"/>
+          </shape>
+          EOF
+
+      - name: 5. Build Advanced Studio Dashboard UI (activity_main.xml)
+        run: |
+          cat << 'EOF' > app/src/main/res/layout/activity_main.xml
+          <?xml version="1.0" encoding="utf-8"?>
+          <ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
+              android:layout_width="match_parent"
+              android:layout_height="match_parent"
+              android:background="@color/studio_black"
+              android:padding="18dp">
+
+              <LinearLayout
+                  android:layout_width="match_parent"
+                  android:layout_height="wrap_content"
+                  android:orientation="vertical">
+
+                  <TextView
+                      android:layout_width="match_parent"
+                      android:layout_height="wrap_content"
+                      android:text="जीशान ऑडियो प्रो इंजन"
+                      android:textColor="@color/matrix_green"
+                      android:textSize="26sp"
+                      android:textStyle="bold"
+                      android:gravity="center"
+                      android:layout_marginTop="10dp"
+                      android:layout_marginBottom="25dp"/>
+
+                  <Button
+                      android:id="@+id/btnUploadPdf"
+                      android:layout_width="match_parent"
+                      android:layout_height="58dp"
+                      android:text="📁 स्मार्ट पीडीएफ लोड करें (PDF Import)"
+                      android:backgroundTint="@color/matrix_green"
+                      android:textColor="@color/studio_black"
+                      android:textStyle="bold"
+                      android:layout_marginBottom="15dp"/>
+
+                  <EditText
+                      android:id="@+id/etGitaText"
+                      android:layout_width="match_parent"
+                      android:layout_height="240dp"
+                      android:hint="यहाँ पाठ पेस्ट करें या ऊपर बटन दबाकर सीधे किसी भी पीडीएफ से टेक्स्ट निकालें..."
+                      android:gravity="top|start"
+                      android:background="@drawable/neon_input_border"
+                      android:padding="14dp"
+                      android:textColorHint="@color/text_secondary_muted"
+                      android:inputType="textMultiLine"
+                      android:scrollbars="vertical"
+                      android:textColor="@color/pure_white"
+                      android:layout_marginBottom="20dp"/>
+
+                  <TextView
+                      android:layout_width="wrap_content"
+                      android:layout_height="wrap_content"
+                      android:text="आवाज की गति नियंत्रण (Speed Controller):"
+                      android:textStyle="bold"
+                      android:textColor="@color/text_secondary_muted"
+                      android:layout_marginBottom="5dp"/>
+                      
+                  <SeekBar
+                      android:id="@+id/sbSpeed"
+                      android:layout_width="match_parent"
+                      android:layout_height="wrap_content"
+                      android:max="20"
+                      android:progress="10"
+                      android:layout_marginBottom="25dp"/>
+
+                  <LinearLayout
+                      android:layout_width="match_parent"
+                      android:layout_height="wrap_content"
+                      android:orientation="horizontal"
+                      android:weightSum="2"
+                      android:layout_marginBottom="15dp">
+
+                      <Button
+                          android:id="@+id/btnPlayLive"
+                          android:layout_width="0dp"
+                          android:layout_height="56dp"
+                          android:layout_weight="1"
+                          android:text="▶️ लाइव प्ले"
+                          android:backgroundTint="@color/pure_white"
+                          android:textColor="@color/studio_black"
+                          android:textStyle="bold"
+                          android:layout_marginEnd="6dp"/>
+
+                      <Button
+                          android:id="@+id/btnStop"
+                          android:layout_width="0dp"
+                          android:layout_height="56dp"
+                          android:layout_weight="1"
+                          android:text="⏱️ स्टॉप प्लेयर"
+                          android:backgroundTint="@color/stop_btn_gray"
+                          android:textColor="@color/pure_white"
+                          android:layout_marginStart="6dp"/>
+                  </LinearLayout>
+
+                  <Button
+                      android:id="@+id/btnExportAudio"
+                      android:layout_width="match_parent"
+                      android:layout_height="62dp"
+                      android:text="💾 गैलरी में सीधा ट्रैक (WAV) बनाकर सहेजें"
+                      android:backgroundTint="@color/matrix_green"
+                      android:textSize="15sp"
+                      android:textStyle="bold"
+                      android:textColor="@color/studio_black"/>
+
+                  <TextView
+                      android:id="@+id/tvStatus"
+                      android:layout_width="match_parent"
+                      android:layout_height="wrap_content"
+                      android:text="सिस्टम स्थिति: रेडी"
+                      android:gravity="center"
+                      android:layout_marginTop="20dp"
+                      android:textColor="@color/pure_white"
+                      android:textStyle="italic"/>
+
+              </LinearLayout>
+          </ScrollView>
+          EOF
+
+      - name: 6. Build High-Performance PDF Extractor (PDFExtractor.kt)
+        run: |
+          cat << 'EOF' > app/src/main/java/com/zeeshan/audio/utils/PDFExtractor.kt
+          package com.zeeshan.audio.utils
+
+          import android.content.Context
+          import android.net.Uri
+          import com.tom-roush.pdfbox.android.PDFBoxResourceLoader
+          import com.tom-roush.pdfbox.pdmodel.PDDocument
+          import com.tom-roush.pdfbox.text.PDFTextStripper
+          import kotlinx.coroutines.Dispatchers
+          import kotlinx.coroutines.withContext
+
+          object PDFExtractor {
+              fun init(context: Context) {
+                  PDFBoxResourceLoader.init(context)
+              }
+
+              suspend fun extractText(context: Context, uri: Uri): String = withContext(Dispatchers.IO) {
+                  var pdfDocument: PDDocument? = null
+                  try {
+                      val inputStream = context.contentResolver.openInputStream(uri)
+                      pdfDocument = PDDocument.load(inputStream)
+                      val stripper = PDFTextStripper().apply {
+                          sortByPosition = true
+                      }
+                      return@withContext stripper.getText(pdfDocument) ?: ""
+                  } catch (e: Exception) {
+                      e.printStackTrace()
+                      return@withContext "पीडीएफ को डीकोड करने में विफल: ${e.localizedMessage}"
+                  } finally {
+                      try { pdfDocument?.close() } catch (ex: Exception) {}
+                  }
+              }
+          }
+          EOF
+
+      - name: 7. Build Core AI Speech Engine (TTSEngineManager.kt)
+        run: |
+          cat << 'EOF' > app/src/main/java/com/zeeshan/audio/engine/TTSEngineManager.kt
+          package com.zeeshan.audio.engine
+
+          import android.content.ContentValues
+          import android.content.Context
+          import android.os.Build
+          import android.os.Bundle
+          import android.os.Environment
+          import android.provider.MediaStore
+          import android.speech.tts.TextToSpeech
+          import android.speech.tts.UtteranceProgressListener
+          import java.io.File
+          import java.util.Locale
+
+          class TTSEngineManager(private val context: Context, private val onReady: () -> Unit) {
+              private var tts: TextToSpeech? = null
+              private var isInitialized = false
+
+              init {
+                  tts = TextToSpeech(context) { status ->
+                      if (status == TextToSpeech.SUCCESS) {
+                          val result = tts?.setLanguage(Locale("hi", "IN"))
+                          if (result == TextToSpeech.LANG_MISSING_DATA || result == TextToSpeech.LANG_NOT_SUPPORTED) {
+                              tts?.setLanguage(Locale.US)
+                          }
+                          tts?.setPitch(1.0f)
+                          isInitialized = true
+                          onReady()
+                      }
+                  }
+              }
+
+              fun setSpeed(speed: Float) {
+                  if (isInitialized) tts?.setSpeechRate(speed)
+              }
+
+              fun speakLive(text: String) {
+                  if (!isInitialized || text.isEmpty()) return
+                  tts?.stop()
+                  val chunks = text.chunked(3000)
+                  chunks.forEachIndexed { index, chunk ->
+                      tts?.speak(chunk, TextToSpeech.QUEUE_ADD, null, "chunk_$index")
+                  }
+              }
+
+              fun exportToGallery(text: String, title: String, onStatusUpdate: (String) -> Unit) {
+                  if (!isInitialized || text.isEmpty()) {
+                      onStatusUpdate("सिस्टम एरर: टेक्स्ट खाली है या वॉइस इंजन लोड नहीं हुआ।")
+                      return
+                  }
+                  onStatusUpdate("स्मार्ट रिकॉर्डर सक्रिय: ट्रैक कंपाइल किया जा रहा है...")
+
+                  val tempFile = File(context.getExternalFilesDir(Environment.DIRECTORY_MUSIC), "$title.wav")
+                  val params = Bundle().apply {
+                      putString(TextToSpeech.Engine.KEY_PARAM_UTTERANCE_ID, "zeeshan_audio_export")
+                  }
+
+                  val result = tts?.synthesizeToFile(text, params, tempFile, "zeeshan_audio_export")
+                  if (result == TextToSpeech.SUCCESS) {
+                      tts?.setOnUtteranceProgressListener(object : UtteranceProgressListener() {
+                          override fun onStart(utteranceId: String?) {}
+                          override fun onDone(utteranceId: String?) {
+                              saveToPublicMusicFolder(context, tempFile, title)
+                              onStatusUpdate("🎉 सहेजा गया! ट्रैक फोन स्टोरेज के 'Music/Zeeshan_Audios' फ़ोल्डर में उपलब्ध है।")
+                          }
+                          override fun onError(utteranceId: String?) {
+                              onStatusUpdate("❌ रेंडरिंग फेल हो गई।")
+                          }
+                      })
+                  } else {
+                      onStatusUpdate("❌ ऑडियो सिंथेसाइज़र को प्रारंभ करने में असमर्थ।")
+                  }
+              }
+
+              private fun saveToPublicMusicFolder(context: Context, srcFile: File, title: String) {
+                  val resolver = context.contentResolver
+                  val audioCollection = if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.Q) {
+                      MediaStore.Audio.Media.getContentUri(MediaStore.VOLUME_EXTERNAL_PRIMARY)
+                  } else {
+                      MediaStore.Audio.Media.EXTERNAL_CONTENT_URI
+                  }
+
+                  val trackDetails = ContentValues().apply {
+                      put(MediaStore.Audio.Media.DISPLAY_NAME, "$title.wav")
+                      put(MediaStore.Audio.Media.MIME_TYPE, "audio/wav")
+                      put(MediaStore.Audio.Media.TITLE, title)
+                      if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.Q) {
+                          put(MediaStore.Audio.Media.RELATIVE_PATH, "${Environment.DIRECTORY_MUSIC}/Zeeshan_Audios")
+                      }
+                  }
+
+                  val uri = resolver.insert(audioCollection, trackDetails)
+                  uri?.let { destUri ->
+                      resolver.openOutputStream(destUri)?.use { outputStream ->
+                          srcFile.inputStream().use { inputStream ->
+                              inputStream.copyTo(outputStream)
+                          }
+                      }
+                  }
+              }
+
+              fun stop() { tts?.stop() }
+              fun shutdown() { tts?.shutdown() }
+          }
+          EOF
+
+      - name: 8. Build Optimized App Controller (MainActivity.kt - Fixed Path Bug)
+        run: |
+          cat << 'EOF' > app/src/main/java/com/zeeshan/audio/MainActivity.kt
+          package com.zeeshan.audio
+
+          import android.app.Activity
+          import android.content.Intent
+          import android.net.Uri
+          import android.os.Bundle
+          import android.widget.*
+          import androidx.activity.result.contract.ActivityResultContracts
+          import androidx.appcompat.app.AppCompatActivity
+          import androidx.lifecycle.lifecycleScope
+          import com.zeeshan.audio.engine.TTSEngineManager
+          import com.zeeshan.audio.utils.PDFExtractor
+          import kotlinx.coroutines.launch
+
+          class MainActivity : AppCompatActivity() {
+              private lateinit var ttsManager: TTSEngineManager
+              private lateinit var etGitaText: EditText
+              private lateinit var tvStatus: TextView
+              private var currentSpeed: Float = 1.0f
+
+              private val pdfPickerLauncher = registerForActivityResult(
+                  ActivityResultContracts.StartActivityForResult()
+              ) { result ->
+                  if (result.resultCode == Activity.RESULT_OK) {
+                      result.data?.data?.let { uri -> loadPdfText(uri) }
+                  }
+              }
+
+              override fun onCreate(savedInstanceState: Bundle?) {
+                  super.onCreate(savedInstanceState)
+                  setContentView(R.layout.activity_main)
+
+                  PDFExtractor.init(this)
+                  etGitaText = findViewById(R.id.etGitaText)
+                  tvStatus = findViewById(R.id.tvStatus)
+                  
+                  val btnUploadPdf = findViewById<Button>(R.id.btnUploadPdf)
+                  val btnPlayLive = findViewById<Button>(R.id.btnPlayLive)
+                  val btnStop = findViewById<Button>(R.id.btnStop)
+                  val btnExportAudio = findViewById<Button>(R.id.btnExportAudio)
+                  val sbSpeed = findViewById<SeekBar>(R.id.sbSpeed)
+
+                  ttsManager = TTSEngineManager(this) {
+                      runOnUiThread { tvStatus.text = "सिस्टम स्थिति: एआई ऑडियो कोर सक्रिय है!" }
+                  }
+
+                  btnUploadPdf.setOnClickListener {
+                      val intent = Intent(Intent.ACTION_GET_CONTENT).apply {
+                          type = "application/pdf"
+                          addCategory(Intent.CATEGORY_OPENABLE)
+                      }
+                      pdfPickerLauncher.launch(intent)
+                  }
+
+                  btnPlayLive.setOnClickListener {
+                      val text = etGitaText.text.toString()
+                      if (text.isNotEmpty()) {
+                          ttsManager.setSpeed(currentSpeed)
+                          ttsManager.speakLive(text)
+                          tvStatus.text = "स्थिति: लाइव ब्रॉडकास्ट चालू है..."
+                      } else {
+                          Toast.makeText(this, "कृपया पहले कोई कंटेंट इनपुट करें!", Toast.LENGTH_SHORT).show()
+                      }
+                  }
+
+                  btnStop.setOnClickListener {
+                      ttsManager.stop()
+                      tvStatus.text = "स्थिति: ऑडियो बंद किया गया"
+                  }
+
+                  btnExportAudio.setOnClickListener {
+                      val text = etGitaText.text.toString()
+                      if (text.isNotEmpty()) {
+                          ttsManager.setSpeed(currentSpeed)
+                          ttsManager.exportToGallery(text, "Zeeshan_Studio_Track_${System.currentTimeMillis()}") { msg ->
+                              runOnUiThread { tvStatus.text = msg }
+                          }
+                      } else {
+                          Toast.makeText(this, "कनवर्ट करने के लिए कोई टेक्स्ट नहीं मिला!", Toast.LENGTH_SHORT).show()
+                      }
+                  }
+
+                  sbSpeed.setOnSeekBarChangeListener(object : SeekBar.OnSeekBarChangeListener {
+                      override fun onProgressChanged(seekBar: SeekBar?, progress: Int, fromUser: Boolean) {
+                          currentSpeed = 0.5f + (progress / 20.0f) * 1.5f
+                      }
+                      override fun onStartTrackingTouch(seekBar: SeekBar?) {}
+                      override fun onStopTrackingTouch(seekBar: SeekBar?) {
+                          ttsManager.setSpeed(currentSpeed)
+                      }
+                  })
+              }
+
+              private fun loadPdfText(uri: Uri) {
+                  tvStatus.text = "एआई डीप स्कैन: पीडीएफ का विश्लेषण किया जा रहा है..."
+                  lifecycleScope.launch {
+                      val extractedText = PDFExtractor.extractText(this@MainActivity, uri)
+                      etGitaText.setText(extractedText)
+                      tvStatus.text = "स्थिति: पीडीएफ सफलतापूर्वक इम्पोर्ट हो गई!"
+                  }
+              }
+
+              override fun onDestroy() {
+                  super.onDestroy()
+                  ttsManager.shutdown()
+              }
+          }
+          EOF
+
+      - name: 9. Write Production Security Manifest (AndroidManifest.xml)
+        run: |
+          cat << 'EOF' > app/src/main/AndroidManifest.xml
+          <?xml version="1.0" encoding="utf-8"?>
+          <manifest xmlns:android="http://schemas.android.com/apk/res/android"
+              package="com.zeeshan.audio">
+              
+              <uses-permission android:name="android.permission.READ_EXTERNAL_STORAGE" android:maxSdkVersion="32" />
+              <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE" android:maxSdkVersion="28"/>
+
+              <queries>
+                  <intent>
+                      <action android:name="android.intent.action.TTS_SERVICE" />
+                  </intent>
+              </queries>
+
+              <application
+                  android:allowBackup="true"
+                  android:icon="@drawable/app_icon"
+                  android:label="@string/app_name"
+                  android:roundIcon="@drawable/app_icon"
+                  android:supportsRtl="true"
+                  android:requestLegacyExternalStorage="true"
+                  android:theme="@style/Theme.ZeeshanAudio">
+                  <activity
+                      android:name=".MainActivity"
+                      android:configChanges="orientation|screenSize"
+                      android:exported="true">
+                      <intent-filter>
+                          <action android:name="android.intent.action.MAIN" />
+                          <category android:name="android.intent.category.LAUNCHER" />
+                      </intent-filter>
+                  </activity>
+              </application>
+          </manifest>
+          EOF
+
+      - name: 10. Configure Stable Gradle Build Matrix & Core Dependencies
+        run: |
+          cat << 'EOF' > build.gradle
+          plugins {
+              id 'com.android.application' version '8.2.2' apply false
+              id 'org.jetbrains.kotlin.android' version '1.9.10' apply false
+          }
+          EOF
+
+          cat << 'EOF' > gradle.properties
+          android.useAndroidX=true
+          android.enableJetifier=true
+          org.gradle.jvmargs=-Xmx4g
+          EOF
+
+          cat << 'EOF' > settings.gradle
+          pluginManagement {
+              repositories {
+                  google()
+                  mavenCentral()
+                  gradlePluginPortal()
+              }
+          }
+          dependencyResolutionManagement {
+              repositoriesMode.set(RepositoriesMode.PREFER_SETTINGS)
+              repositories {
+                  google()
+                  mavenCentral()
+              }
+          }
+          include ':app'
+          EOF
+
+          cat << 'EOF' > app/build.gradle
+          plugins {
+              id 'com.android.application'
+              id 'org.jetbrains.kotlin.android'
+          }
+
+          android {
+              namespace 'com.zeeshan.audio'
+              compileSdk 34
+
+              defaultConfig {
+                  applicationId "com.zeeshan.audio"
+                  minSdk 26
+                  targetSdk 34
+                  versionCode 3
+                  versionName "3.0-StudioPro"
+              }
+
+              buildTypes {
+                  release {
+                      minifyEnabled false
+                  }
+              }
+          }
+
+          dependencies {
+              implementation 'androidx.appcompat:appcompat:1.6.1'
+              implementation 'com.google.android.material:material:1.11.0'
+              implementation 'androidx.constraintlayout:constraintlayout:2.1.4'
+              implementation 'com.tom-roush:pdfbox-android:2.0.27'
+              implementation 'org.jetbrains.kotlinx:kotlinx-coroutines-android:1.7.3'
+              implementation 'androidx.lifecycle:lifecycle-runtime-ktx:2.6.2'
+          }
+          EOF
+
+      - name: 11. Run Build Engine & Compile Secure APK
+        run: |
+          gradle wrapper --gradle-version 8.5
+          chmod +x gradlew
+          ./gradlew assembleDebug
+
+      - name: 12. Deliver Final Artifact Package to User Storage
+        uses: actions/upload-artifact@v4
+        with:
+          name: Zeeshan-Audio-Pro-Package
+          path: app/build/outputs/apk/debug/*.apk
