@@ -18,7 +18,6 @@ jobs:
           java-version: '17'
           distribution: 'temurin'
 
-      # यहाँ हमने सीधे ग्रैडल 8.5 को लॉक कर दिया है ताकि 9.6.1 वाला क्रैश कभी न आए
       - name: 2.5 Setup Fixed Gradle 8.5 Engine
         uses: gradle/actions/setup-gradle@v4
         with:
@@ -503,6 +502,7 @@ jobs:
           </manifest>
           EOF
 
+      # 🛠️ यहाँ मैंने PdfBox का वर्ज़न 2.0.27 से बदलकर 2.0.27.0 (Deep Fix) कर दिया है!
       - name: 10. Configure Stable Gradle Build Matrix & Core Dependencies
         run: |
           cat << 'EOF' > build.gradle
@@ -565,13 +565,12 @@ jobs:
               implementation 'androidx.appcompat:appcompat:1.6.1'
               implementation 'com.google.android.material:material:1.11.0'
               implementation 'androidx.constraintlayout:constraintlayout:2.1.4'
-              implementation 'com.tom-roush:pdfbox-android:2.0.27'
+              implementation 'com.tom-roush:pdfbox-android:2.0.27.0'
               implementation 'org.jetbrains.kotlinx:kotlinx-coroutines-android:1.7.3'
               implementation 'androidx.lifecycle:lifecycle-runtime-ktx:2.6.2'
           }
           EOF
 
-      # स्टेप 11 को पूरी तरह बदल दिया गया है, अब यह बिना क्रैश हुए डायरेक्ट ग्रैडल 8.5 इंजन पर रन होगा
       - name: 11. Run Build Engine & Compile Secure APK
         run: |
           gradle assembleDebug
