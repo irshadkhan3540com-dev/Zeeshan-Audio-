@@ -36,7 +36,7 @@ jobs:
           cat << 'EOF' > app/src/main/res/values/strings.xml
           <?xml version="1.0" encoding="utf-8"?>
           <resources>
-              <string name="app_name">जीशान ऑडियो</string>
+              <string name="app_name">à¤œà¥€à¤¶à¤¾à¤¨ à¤‘à¤¡à¤¿à¤¯à¥‹</string>
           </resources>
           EOF
 
@@ -107,7 +107,7 @@ jobs:
                   <TextView
                       android:layout_width="match_parent"
                       android:layout_height="wrap_content"
-                      android:text="जीशान ऑडियो प्रो इंजन"
+                      android:text="à¤œà¥€à¤¶à¤¾à¤¨ à¤‘à¤¡à¤¿à¤¯à¥‹ à¤ªà¥à¤°à¥‹ à¤‡à¤‚à¤œà¤¨"
                       android:textColor="@color/matrix_green"
                       android:textSize="26sp"
                       android:textStyle="bold"
@@ -119,7 +119,7 @@ jobs:
                       android:id="@+id/btnUploadPdf"
                       android:layout_width="match_parent"
                       android:layout_height="58dp"
-                      android:text="📁 स्मार्ट पीडीएफ लोड करें (PDF Import)"
+                      android:text="ðŸ“ à¤¸à¥à¤®à¤¾à¤°à¥à¤Ÿ à¤ªà¥€à¤¡à¥€à¤à¤« à¤²à¥‹à¤¡ à¤•à¤°à¥‡à¤‚ (PDF Import)"
                       android:backgroundTint="@color/matrix_green"
                       android:textColor="@color/studio_black"
                       android:textStyle="bold"
@@ -129,7 +129,7 @@ jobs:
                       android:id="@+id/etGitaText"
                       android:layout_width="match_parent"
                       android:layout_height="240dp"
-                      android:hint="यहाँ पाठ पेस्ट करें या ऊपर बटन दबाकर सीधे किसी भी पीडीएफ से टेक्स्ट निकालें..."
+                      android:hint="à¤¯à¤¹à¤¾à¤ à¤ªà¤¾à¤  à¤ªà¥‡à¤¸à¥à¤Ÿ à¤•à¤°à¥‡à¤‚ à¤¯à¤¾ à¤Šà¤ªà¤° à¤¬à¤Ÿà¤¨ à¤¦à¤¬à¤¾à¤•à¤° à¤¸à¥€à¤§à¥‡ à¤•à¤¿à¤¸à¥€ à¤­à¥€ à¤ªà¥€à¤¡à¥€à¤à¤« à¤¸à¥‡ à¤Ÿà¥‡à¤•à¥à¤¸à¥à¤Ÿ à¤¨à¤¿à¤•à¤¾à¤²à¥‡à¤‚..."
                       android:gravity="top|start"
                       android:background="@drawable/neon_input_border"
                       android:padding="14dp"
@@ -142,11 +142,11 @@ jobs:
                   <TextView
                       android:layout_width="wrap_content"
                       android:layout_height="wrap_content"
-                      android:text="आवाज की गति नियंत्रण (Speed Controller):"
+                      android:text="à¤†à¤µà¤¾à¤œ à¤•à¥€ à¤—à¤¤à¤¿ à¤¨à¤¿à¤¯à¤‚à¤¤à¥à¤°à¤£ (Speed Controller):"
                       android:textStyle="bold"
                       android:textColor="@color/text_secondary_muted"
                       android:layout_marginBottom="5dp"/>
-                      
+
                   <SeekBar
                       android:id="@+id/sbSpeed"
                       android:layout_width="match_parent"
@@ -167,7 +167,7 @@ jobs:
                           android:layout_width="0dp"
                           android:layout_height="56dp"
                           android:layout_weight="1"
-                          android:text="▶️ लाइव प्ले"
+                          android:text="â–¶ï¸ à¤²à¤¾à¤‡à¤µ à¤ªà¥à¤²à¥‡"
                           android:backgroundTint="@color/pure_white"
                           android:textColor="@color/studio_black"
                           android:textStyle="bold"
@@ -178,7 +178,7 @@ jobs:
                           android:layout_width="0dp"
                           android:layout_height="56dp"
                           android:layout_weight="1"
-                          android:text="⏱️ स्टॉप प्लेयर"
+                          android:text="â±ï¸ à¤¸à¥à¤Ÿà¥‰à¤ª à¤ªà¥à¤²à¥‡à¤¯à¤°"
                           android:backgroundTint="@color/stop_btn_gray"
                           android:textColor="@color/pure_white"
                           android:layout_marginStart="6dp"/>
@@ -188,7 +188,7 @@ jobs:
                       android:id="@+id/btnExportAudio"
                       android:layout_width="match_parent"
                       android:layout_height="62dp"
-                      android:text="💾 गैलरी में सीधा ट्रैक (WAV) बनाकर सहेजें"
+                      android:text="ðŸ’¾ à¤—à¥ˆà¤²à¤°à¥€ à¤®à¥‡à¤‚ à¤¸à¥€à¤§à¤¾ à¤Ÿà¥à¤°à¥ˆà¤• (WAV) à¤¬à¤¨à¤¾à¤•à¤° à¤¸à¤¹à¥‡à¤œà¥‡à¤‚"
                       android:backgroundTint="@color/matrix_green"
                       android:textSize="15sp"
                       android:textStyle="bold"
@@ -198,7 +198,7 @@ jobs:
                       android:id="@+id/tvStatus"
                       android:layout_width="match_parent"
                       android:layout_height="wrap_content"
-                      android:text="सिस्टम स्थिति: रेडी"
+                      android:text="à¤¸à¤¿à¤¸à¥à¤Ÿà¤® à¤¸à¥à¤¥à¤¿à¤¤à¤¿: à¤°à¥‡à¤¡à¥€"
                       android:gravity="center"
                       android:layout_marginTop="20dp"
                       android:textColor="@color/pure_white"
@@ -215,9 +215,9 @@ jobs:
 
           import android.content.Context
           import android.net.Uri
-          import com.tom-roush.pdfbox.android.PDFBoxResourceLoader
-          import com.tom-roush.pdfbox.pdmodel.PDDocument
-          import com.tom-roush.pdfbox.text.PDFTextStripper
+          import com.tom_roush.pdfbox.android.PDFBoxResourceLoader
+          import com.tom_roush.pdfbox.pdmodel.PDDocument
+          import com.tom_roush.pdfbox.text.PDFTextStripper
           import kotlinx.coroutines.Dispatchers
           import kotlinx.coroutines.withContext
 
@@ -237,7 +237,7 @@ jobs:
                       return@withContext stripper.getText(pdfDocument) ?: ""
                   } catch (e: Exception) {
                       e.printStackTrace()
-                      return@withContext "पीडीएफ को डीकोड करने में विफल: ${e.localizedMessage}"
+                      return@withContext "à¤ªà¥€à¤¡à¥€à¤à¤« à¤•à¥‹ à¤¡à¥€à¤•à¥‹à¤¡ à¤•à¤°à¤¨à¥‡ à¤®à¥‡à¤‚ à¤µà¤¿à¤«à¤²: ${e.localizedMessage}"
                   } finally {
                       try { pdfDocument?.close() } catch (ex: Exception) {}
                   }
@@ -294,10 +294,10 @@ jobs:
 
               fun exportToGallery(text: String, title: String, onStatusUpdate: (String) -> Unit) {
                   if (!isInitialized || text.isEmpty()) {
-                      onStatusUpdate("सिस्टम एरर: टेक्स्ट खाली है या वॉइस इंजन लोड नहीं हुआ।")
+                      onStatusUpdate("à¤¸à¤¿à¤¸à¥à¤Ÿà¤® à¤à¤°à¤°: à¤Ÿà¥‡à¤•à¥à¤¸à¥à¤Ÿ à¤–à¤¾à¤²à¥€ à¤¹à¥ˆ à¤¯à¤¾ à¤µà¥‰à¤‡à¤¸ à¤‡à¤‚à¤œà¤¨ à¤²à¥‹à¤¡ à¤¨à¤¹à¥€à¤‚ à¤¹à¥à¤†à¥¤")
                       return
                   }
-                  onStatusUpdate("स्मार्ट रिकॉर्डर सक्रिय: ट्रैक कंपाइल किया जा रहा है...")
+                  onStatusUpdate("à¤¸à¥à¤®à¤¾à¤°à¥à¤Ÿ à¤°à¤¿à¤•à¥‰à¤°à¥à¤¡à¤° à¤¸à¤•à¥à¤°à¤¿à¤¯: à¤Ÿà¥à¤°à¥ˆà¤• à¤•à¤‚à¤ªà¤¾à¤‡à¤² à¤•à¤¿à¤¯à¤¾ à¤œà¤¾ à¤°à¤¹à¤¾ à¤¹à¥ˆ...")
 
                   val tempFile = File(context.getExternalFilesDir(Environment.DIRECTORY_MUSIC), "$title.wav")
                   val params = Bundle().apply {
@@ -310,14 +310,14 @@ jobs:
                           override fun onStart(utteranceId: String?) {}
                           override fun onDone(utteranceId: String?) {
                               saveToPublicMusicFolder(context, tempFile, title)
-                              onStatusUpdate("🎉 सहेजा गया! ट्रैक फोन स्टोरेज के 'Music/Zeeshan_Audios' फ़ोल्डर में उपलब्ध है।")
+                              onStatusUpdate("ðŸŽ‰ à¤¸à¤¹à¥‡à¤œà¤¾ à¤—à¤¯à¤¾! à¤Ÿà¥à¤°à¥ˆà¤• à¤«à¥‹à¤¨ à¤¸à¥à¤Ÿà¥‹à¤°à¥‡à¤œ à¤•à¥‡ 'Music/Zeeshan_Audios' à¤«à¤¼à¥‹à¤²à¥à¤¡à¤° à¤®à¥‡à¤‚ à¤‰à¤ªà¤²à¤¬à¥à¤§ à¤¹à¥ˆà¥¤")
                           }
                           override fun onError(utteranceId: String?) {
-                              onStatusUpdate("❌ रेंडरिंग फेल हो गई।")
+                              onStatusUpdate("âŒ à¤°à¥‡à¤‚à¤¡à¤°à¤¿à¤‚à¤— à¤«à¥‡à¤² à¤¹à¥‹ à¤—à¤ˆà¥¤")
                           }
                       })
                   } else {
-                      onStatusUpdate("❌ ऑडियो सिंथेसाइज़र को प्रारंभ करने में असमर्थ।")
+                      onStatusUpdate("âŒ à¤‘à¤¡à¤¿à¤¯à¥‹ à¤¸à¤¿à¤‚à¤¥à¥‡à¤¸à¤¾à¤‡à¤œà¤¼à¤° à¤•à¥‹ à¤ªà¥à¤°à¤¾à¤°à¤‚à¤­ à¤•à¤°à¤¨à¥‡ à¤®à¥‡à¤‚ à¤…à¤¸à¤®à¤°à¥à¤¥à¥¤")
                   }
               }
 
@@ -391,7 +391,7 @@ jobs:
                   PDFExtractor.init(this)
                   etGitaText = findViewById(R.id.etGitaText)
                   tvStatus = findViewById(R.id.tvStatus)
-                  
+
                   val btnUploadPdf = findViewById<Button>(R.id.btnUploadPdf)
                   val btnPlayLive = findViewById<Button>(R.id.btnPlayLive)
                   val btnStop = findViewById<Button>(R.id.btnStop)
@@ -399,7 +399,7 @@ jobs:
                   val sbSpeed = findViewById<SeekBar>(R.id.sbSpeed)
 
                   ttsManager = TTSEngineManager(this) {
-                      runOnUiThread { tvStatus.text = "सिस्टम स्थिति: एआई ऑडियो कोर सक्रिय है!" }
+                      runOnUiThread { tvStatus.text = "à¤¸à¤¿à¤¸à¥à¤Ÿà¤® à¤¸à¥à¤¥à¤¿à¤¤à¤¿: à¤à¤†à¤ˆ à¤‘à¤¡à¤¿à¤¯à¥‹ à¤•à¥‹à¤° à¤¸à¤•à¥à¤°à¤¿à¤¯ à¤¹à¥ˆ!" }
                   }
 
                   btnUploadPdf.setOnClickListener {
@@ -415,15 +415,15 @@ jobs:
                       if (text.isNotEmpty()) {
                           ttsManager.setSpeed(currentSpeed)
                           ttsManager.speakLive(text)
-                          tvStatus.text = "स्थिति: लाइव ब्रॉडकास्ट चालू है..."
+                          tvStatus.text = "à¤¸à¥à¤¥à¤¿à¤¤à¤¿: à¤²à¤¾à¤‡à¤µ à¤¬à¥à¤°à¥‰à¤¡à¤•à¤¾à¤¸à¥à¤Ÿ à¤šà¤¾à¤²à¥‚ à¤¹à¥ˆ..."
                       } else {
-                          Toast.makeText(this, "कृपया पहले कोई कंटेंट इनपुट करें!", Toast.LENGTH_SHORT).show()
+                          Toast.makeText(this, "à¤•à¥ƒà¤ªà¤¯à¤¾ à¤ªà¤¹à¤²à¥‡ à¤•à¥‹à¤ˆ à¤•à¤‚à¤Ÿà¥‡à¤‚à¤Ÿ à¤‡à¤¨à¤ªà¥à¤Ÿ à¤•à¤°à¥‡à¤‚!", Toast.LENGTH_SHORT).show()
                       }
                   }
 
                   btnStop.setOnClickListener {
                       ttsManager.stop()
-                      tvStatus.text = "स्थिति: ऑडियो बंद किया गया"
+                      tvStatus.text = "à¤¸à¥à¤¥à¤¿à¤¤à¤¿: à¤‘à¤¡à¤¿à¤¯à¥‹ à¤¬à¤‚à¤¦ à¤•à¤¿à¤¯à¤¾ à¤—à¤¯à¤¾"
                   }
 
                   btnExportAudio.setOnClickListener {
@@ -434,7 +434,7 @@ jobs:
                               runOnUiThread { tvStatus.text = msg }
                           }
                       } else {
-                          Toast.makeText(this, "कनवर्ट करने के लिए कोई टेक्स्ट नहीं मिला!", Toast.LENGTH_SHORT).show()
+                          Toast.makeText(this, "à¤•à¤¨à¤µà¤°à¥à¤Ÿ à¤•à¤°à¤¨à¥‡ à¤•à¥‡ à¤²à¤¿à¤ à¤•à¥‹à¤ˆ à¤Ÿà¥‡à¤•à¥à¤¸à¥à¤Ÿ à¤¨à¤¹à¥€à¤‚ à¤®à¤¿à¤²à¤¾!", Toast.LENGTH_SHORT).show()
                       }
                   }
 
@@ -450,11 +450,11 @@ jobs:
               }
 
               private fun loadPdfText(uri: Uri) {
-                  tvStatus.text = "एआई डीप स्कैन: पीडीएफ का विश्लेषण किया जा रहा है..."
+                  tvStatus.text = "à¤à¤†à¤ˆ à¤¡à¥€à¤ª à¤¸à¥à¤•à¥ˆà¤¨: à¤ªà¥€à¤¡à¥€à¤à¤« à¤•à¤¾ à¤µà¤¿à¤¶à¥à¤²à¥‡à¤·à¤£ à¤•à¤¿à¤¯à¤¾ à¤œà¤¾ à¤°à¤¹à¤¾ à¤¹à¥ˆ..."
                   lifecycleScope.launch {
                       val extractedText = PDFExtractor.extractText(this@MainActivity, uri)
                       etGitaText.setText(extractedText)
-                      tvStatus.text = "स्थिति: पीडीएफ सफलतापूर्वक इम्पोर्ट हो गई!"
+                      tvStatus.text = "à¤¸à¥à¤¥à¤¿à¤¤à¤¿: à¤ªà¥€à¤¡à¥€à¤à¤« à¤¸à¤«à¤²à¤¤à¤¾à¤ªà¥‚à¤°à¥à¤µà¤• à¤‡à¤®à¥à¤ªà¥‹à¤°à¥à¤Ÿ à¤¹à¥‹ à¤—à¤ˆ!"
                   }
               }
 
@@ -469,9 +469,8 @@ jobs:
         run: |
           cat << 'EOF' > app/src/main/AndroidManifest.xml
           <?xml version="1.0" encoding="utf-8"?>
-          <manifest xmlns:android="http://schemas.android.com/apk/res/android"
-              package="com.zeeshan.audio">
-              
+          <manifest xmlns:android="http://schemas.android.com/apk/res/android">
+
               <uses-permission android:name="android.permission.READ_EXTERNAL_STORAGE" android:maxSdkVersion="32" />
               <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE" android:maxSdkVersion="28"/>
 
@@ -502,7 +501,6 @@ jobs:
           </manifest>
           EOF
 
-      # 🛠️ यहाँ मैंने PdfBox का वर्ज़न 2.0.27 से बदलकर 2.0.27.0 (Deep Fix) कर दिया है!
       - name: 10. Configure Stable Gradle Build Matrix & Core Dependencies
         run: |
           cat << 'EOF' > build.gradle
@@ -558,6 +556,16 @@ jobs:
                   release {
                       minifyEnabled false
                   }
+              }
+
+              // FIX: Java aur Kotlin dono ko same target (17) par set kiya
+              compileOptions {
+                  sourceCompatibility JavaVersion.VERSION_17
+                  targetCompatibility JavaVersion.VERSION_17
+              }
+
+              kotlinOptions {
+                  jvmTarget = "17"
               }
           }
 
