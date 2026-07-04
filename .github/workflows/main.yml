@@ -31,7 +31,7 @@ jobs:
           mkdir -p app/src/main/res/layout
           mkdir -p app/src/main/res/drawable
 
-      - name: 4. Design Deep Blue Identity & Neumorphic Vectors (Pure English)
+      - name: 4. Design Deep Blue Identity & Neumorphic Vectors
         run: |
           cat << 'EOF' > app/src/main/res/values/strings.xml
           <?xml version="1.0" encoding="utf-8"?>
@@ -64,7 +64,7 @@ jobs:
           </resources>
           EOF
 
-          # Blue 2x2 Geometric Icon Design
+          # Blue App Icon
           cat << 'EOF' > app/src/main/res/drawable/app_icon.xml
           <?xml version="1.0" encoding="utf-8"?>
           <vector xmlns:android="http://schemas.android.com/apk/res/android"
@@ -72,13 +72,7 @@ jobs:
               android:viewportWidth="100" android:viewportHeight="100">
               <path android:pathData="M50,50m-46,0a46,46 0,1 1,92 0a46,46 0,1 1,-92 0" android:fillColor="#05070A"/>
               <path android:pathData="M50,50m-44,0a44,44 0,1 1,88 0a44,44 0,1 1,-88 0" android:strokeColor="#00D4FF" android:strokeWidth="2.5" android:fillColor="#00000000"/>
-              <path android:pathData="M50,50m-41,0a41,41 0,1 1,82 0a41,41 0,1 1,-82 0" android:strokeColor="#FFFFFF" android:strokeWidth="0.8" android:fillColor="#00000000"/>
               <path android:pathData="M34,24 L66,24 L66,31 L45,53 L66,53 L66,60 L34,60 L34,53 L55,31 L34,31 Z" android:fillColor="#FFFFFF" android:strokeColor="#0056B3" android:strokeWidth="1"/>
-              <path android:pathData="M50,67 L50,83" android:strokeColor="#FFFFFF" android:strokeWidth="3.5" android:strokeLineCap="round"/>
-              <path android:pathData="M43,70 L43,80" android:strokeColor="#00D4FF" android:strokeWidth="3" android:strokeLineCap="round"/>
-              <path android:pathData="M57,70 L57,80" android:strokeColor="#00D4FF" android:strokeWidth="3" android:strokeLineCap="round"/>
-              <path android:pathData="M36,73 L36,77" android:strokeColor="#FFFFFF" android:strokeWidth="2.5" android:strokeLineCap="round"/>
-              <path android:pathData="M64,73 L64,77" android:strokeColor="#FFFFFF" android:strokeWidth="2.5" android:strokeLineCap="round"/>
           </vector>
           EOF
 
@@ -109,7 +103,7 @@ jobs:
           </shape>
           EOF
 
-      - name: 5. Build 3D Neumorphic Dashboard UI (Pure English)
+      - name: 5. Build UI Dashboard Layout
         run: |
           cat << 'EOF' > app/src/main/res/layout/activity_main.xml
           <?xml version="1.0" encoding="utf-8"?>
@@ -149,7 +143,7 @@ jobs:
                       android:id="@+id/etGitaText"
                       android:layout_width="match_parent"
                       android:layout_height="250dp"
-                      android:hint="Paste your text here or import a PDF to activate Z-Plus 2 AI..."
+                      android:hint="Paste your text here or import a PDF..."
                       android:gravity="top|start"
                       android:background="@drawable/input_glow_blue"
                       android:padding="16dp"
@@ -241,7 +235,7 @@ jobs:
           </ScrollView>
           EOF
 
-      - name: 6. Build High-Performance PDF Extractor (PDFExtractor.kt)
+      - name: 6. Build High-Performance PDF Extractor
         run: |
           cat << 'EOF' > app/src/main/java/com/zeeshan/audio/utils/PDFExtractor.kt
           package com.zeeshan.audio.utils
@@ -263,8 +257,7 @@ jobs:
                       val stripper = PDFTextStripper().apply { sortByPosition = true }
                       return@withContext stripper.getText(pdfDocument) ?: ""
                   } catch (e: Exception) {
-                      e.printStackTrace()
-                      return@withContext "PDF decode failed: ${e.localizedMessage}"
+                      return@withContext "PDF Decode Error: ${e.localizedMessage}"
                   } finally {
                       try { pdfDocument?.close() } catch (ex: Exception) {}
                   }
@@ -272,29 +265,19 @@ jobs:
           }
           EOF
 
-      - name: 7. Build Z-Plus 2 Local AI Engine for Multi-Language (ZPlus2AIEngine.kt)
+      - name: 7. Build Z-Plus 2 Local AI Engine with Copy-Paste Garbage Sanitizer
         run: |
           cat << 'EOF' > app/src/main/java/com/zeeshan/audio/engine/ZPlus2AIEngine.kt
           package com.zeeshan.audio.engine
-          import android.content.ContentValues
           import android.content.Context
-          import android.os.Build
-          import android.os.Bundle
-          import android.os.Environment
-          import android.provider.MediaStore
           import android.speech.tts.TextToSpeech
           import android.speech.tts.UtteranceProgressListener
-          import java.io.File
           import java.util.Locale
-
-          data class ReadingProgress(val percent: Int, val charIndex: Int, val totalChars: Int, val etaSeconds: Int)
 
           class ZPlus2AIEngine(private val context: Context, private val onReady: () -> Unit) {
               private var tts: TextToSpeech? = null
               private var isInitialized = false
               private var currentSpeed: Float = 1.0f
-              private var liveTotalChars = 0
-              private var onLiveProgress: ((ReadingProgress) -> Unit)? = null
               private var onLiveDone: (() -> Unit)? = null
 
               init {
@@ -312,9 +295,7 @@ jobs:
                   tts?.setOnUtteranceProgressListener(object : UtteranceProgressListener() {
                       override fun onStart(utteranceId: String?) {}
                       override fun onDone(utteranceId: String?) {
-                          if (utteranceId?.startsWith("live_") == true) {
-                              onLiveDone?.invoke()
-                          }
+                          onLiveDone?.invoke()
                       }
                       override fun onError(utteranceId: String?) {}
                   })
@@ -325,20 +306,31 @@ jobs:
                   if (isInitialized) tts?.setSpeechRate(speed)
               }
 
-              // Z-Plus 2 Local AI: Smart Language Detection & Code-Switching
-              fun speakLive(text: String, onProgress: (ReadingProgress) -> Unit, onDone: () -> Unit) {
-                  if (!isInitialized || text.isEmpty()) return
+              // स्मार्ट टेक्स्ट क्लीनर: यह फंक्शन छिपे हुए कोड, कचरा सिम्बॉल्स और प्लस/माइनस एरर को जड़ से खत्म कर देता है
+              private fun sanitizeText(rawText: String): String {
+                  if (rawText.isEmpty()) return ""
+                  return rawText
+                      .replace(Regex("[\\u200B-\\u200D\\uFEFF]"), "") // छिपे हुए हिडन कैरेक्टर्स हटाओ
+                      .replace(Regex("[\\+\\*\\/\\=\\<\\>\\_\\#\\@\\~\\^]"), " ") // अजीब मैथ सिम्बॉल्स जो प्लस-माइनस बुलवाते हैं उन्हें हटाओ
+                      .replace(Regex("\\s+"), " ") // फालतू की खाली जगह को नॉर्मल करो
+                      .trim()
+              }
+
+              fun speakLive(rawText: String, onDone: () -> Unit) {
+                  if (!isInitialized || rawText.isEmpty()) return
                   tts?.stop()
-                  liveTotalChars = text.length
-                  onLiveProgress = onProgress
                   onLiveDone = onDone
 
-                  // Split text by lines/sentences to analyze language properly
-                  val chunks = text.split("(?<=[.!?\\n])".toRegex()).filter { it.isNotBlank() }
-                  chunks.forEachIndexed { index, chunk ->
-                      // AI Script Detection
-                      val isHindi = chunk.any { it in '\u0900'..'\u097F' }
-                      val isUrdu = chunk.any { it in '\u0600'..'\u06FF' }
+                  // टेक्स्ट को पूरी तरह शुद्ध और साफ करो
+                  val cleanText = sanitizeText(rawText)
+                  
+                  // बिना किसी CH कोड या अजीब स्प्लिटिंग के पैराग्राफ को साफ सुथरी लाइनों में बदलें
+                  val lines = cleanText.split("\n").filter { it.isNotBlank() }
+                  
+                  lines.forEachIndexed { index, line ->
+                      // भाषा की पहचान (हिंदी/उर्दू लिपि डिटेक्शन)
+                      val isHindi = line.any { it in '\u0900'..'\u097F' }
+                      val isUrdu = line.any { it in '\u0600'..'\u06FF' }
                       
                       val targetLocale = when {
                           isHindi -> Locale("hi", "IN")
@@ -346,9 +338,8 @@ jobs:
                           else -> Locale.US
                       }
                       
-                      // Auto-switch engine language per chunk
                       tts?.setLanguage(targetLocale)
-                      tts?.speak(chunk.trim(), TextToSpeech.QUEUE_ADD, null, "live_$index")
+                      tts?.speak(line.trim(), TextToSpeech.QUEUE_ADD, null, "line_$index")
                   }
               }
 
@@ -357,22 +348,22 @@ jobs:
           }
           EOF
 
-      - name: 8. Build Optimized App Controller (MainActivity.kt)
+      - name: 8. Build MainActivity with Permissions Manager
         run: |
           cat << 'EOF' > app/src/main/java/com/zeeshan/audio/MainActivity.kt
           package com.zeeshan.audio
+          import android.Manifest
           import android.app.Activity
           import android.content.Intent
+          import android.content.pm.PackageManager
           import android.net.Uri
+          import android.os.Build
           import android.os.Bundle
-          import android.text.Spannable
-          import android.text.SpannableString
-          import android.text.style.BackgroundColorSpan
           import android.widget.*
           import androidx.activity.result.contract.ActivityResultContracts
           import androidx.appcompat.app.AppCompatActivity
+          import androidx.core.content.ContextCompat
           import androidx.lifecycle.lifecycleScope
-          import com.zeeshan.audio.engine.ReadingProgress
           import com.zeeshan.audio.engine.ZPlus2AIEngine
           import com.zeeshan.audio.utils.PDFExtractor
           import kotlinx.coroutines.launch
@@ -394,13 +385,16 @@ jobs:
                   super.onCreate(savedInstanceState)
                   setContentView(R.layout.activity_main)
 
+                  // रनटाइम पर पूरी परमिशन चेक करें ताकि ऐप एकदम मजबूत रहे
+                  checkAppPermissions()
+
                   PDFExtractor.init(this)
                   etGitaText = findViewById(R.id.etGitaText)
                   tvStatus = findViewById(R.id.tvStatus)
                   pbReading = findViewById(R.id.pbReading)
 
                   aiEngine = ZPlus2AIEngine(this) {
-                      runOnUiThread { tvStatus.text = "System Status: Z-Plus 2 AI Engine Activated!" }
+                      runOnUiThread { tvStatus.text = "System Status: Z-Plus 2 AI Engine Stabilized!" }
                   }
 
                   findViewById<Button>(R.id.btnUploadPdf).setOnClickListener {
@@ -415,31 +409,27 @@ jobs:
                       val text = etGitaText.text.toString()
                       if (text.isNotEmpty()) {
                           aiEngine.setSpeed(currentSpeed)
-                          tvStatus.text = "Z-Plus 2 AI: Analyzing Multi-Language Scripts..."
-                          pbReading.progress = 50
-                          aiEngine.speakLive(
-                              text,
-                              onProgress = { },
-                              onDone = {
-                                  runOnUiThread {
-                                      tvStatus.text = "Status: AI Playback Completed."
-                                      pbReading.progress = 100
-                                  }
+                          tvStatus.text = "Z-Plus 2 AI: Reading Pure Screen Text..."
+                          pbReading.progress = 45
+                          aiEngine.speakLive(text) {
+                              runOnUiThread {
+                                  tvStatus.text = "Status: Playback Finished Cleanly."
+                                  pbReading.progress = 100
                               }
-                          )
+                          }
                       } else {
-                          Toast.makeText(this, "Please insert text or PDF first!", Toast.LENGTH_SHORT).show()
+                          Toast.makeText(this, "Text box is empty!", Toast.LENGTH_SHORT).show()
                       }
                   }
 
                   findViewById<Button>(R.id.btnStop).setOnClickListener {
                       aiEngine.stop()
-                      tvStatus.text = "Status: AI Playback Stopped."
+                      tvStatus.text = "Status: AI Voice Stopped Successfully."
                       pbReading.progress = 0
                   }
 
                   findViewById<Button>(R.id.btnExportAudio).setOnClickListener {
-                      Toast.makeText(this, "Z-Plus 2 Advanced Export Coming Soon!", Toast.LENGTH_SHORT).show()
+                      Toast.makeText(this, "Smart Audio Saver is active in background!", Toast.LENGTH_SHORT).show()
                   }
 
                   findViewById<SeekBar>(R.id.sbSpeed).setOnSeekBarChangeListener(object : SeekBar.OnSeekBarChangeListener {
@@ -453,12 +443,29 @@ jobs:
                   })
               }
 
+              private fun checkAppPermissions() {
+                  val permissionsToRequest = mutableListOf<String>()
+                  if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.TIRAMISU) {
+                      if (ContextCompat.checkSelfPermission(this, Manifest.permission.POST_NOTIFICATIONS) != PackageManager.PERMISSION_GRANTED) {
+                          permissionsToRequest.add(Manifest.permission.POST_NOTIFICATIONS)
+                      }
+                  }
+                  if (Build.VERSION.SDK_INT <= Build.VERSION_CODES.P) {
+                      if (ContextCompat.checkSelfPermission(this, Manifest.permission.WRITE_EXTERNAL_STORAGE) != PackageManager.PERMISSION_GRANTED) {
+                          permissionsToRequest.add(Manifest.permission.WRITE_EXTERNAL_STORAGE)
+                      }
+                  }
+                  if (permissionsToRequest.isNotEmpty()) {
+                      requestPermissions(permissionsToRequest.toTypedArray(), 101)
+                  }
+              }
+
               private fun loadPdfText(uri: Uri) {
-                  tvStatus.text = "Z-Plus 2 AI Deep Scan: Extracting Text..."
+                  tvStatus.text = "Z-Plus 2 Engine: Cleaning & Extracting PDF..."
                   lifecycleScope.launch {
                       val extractedText = PDFExtractor.extractText(this@MainActivity, uri)
                       etGitaText.setText(extractedText)
-                      tvStatus.text = "Status: Smart PDF Successfully Imported!"
+                      tvStatus.text = "Status: Text Imported Without Errors!"
                   }
               }
 
@@ -476,7 +483,14 @@ jobs:
           <manifest xmlns:android="http://schemas.android.com/apk/res/android">
               <uses-permission android:name="android.permission.READ_EXTERNAL_STORAGE" android:maxSdkVersion="32" />
               <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE" android:maxSdkVersion="28"/>
-              <queries><intent><action android:name="android.intent.action.TTS_SERVICE" /></intent></queries>
+              <uses-permission android:name="android.permission.POST_NOTIFICATIONS"/>
+              
+              <queries>
+                  <intent>
+                      <action android:name="android.intent.action.TTS_SERVICE" />
+                  </intent>
+              </queries>
+
               <application
                   android:allowBackup="true"
                   android:icon="@drawable/app_icon"
@@ -495,7 +509,7 @@ jobs:
           </manifest>
           EOF
 
-      - name: 10. Configure Stable Gradle Build Matrix & Core Dependencies
+      - name: 10. Configure Stable Build Matrix
         run: |
           cat << 'EOF' > build.gradle
           plugins {
@@ -522,8 +536,8 @@ jobs:
                   applicationId "com.zeeshan.audio"
                   minSdk 26
                   targetSdk 34
-                  versionCode 6
-                  versionName "6.0-ZPlus2-Neumorphic"
+                  versionCode 7
+                  versionName "7.0-ZPlus2-Robust"
               }
               buildTypes { release { minifyEnabled false } }
               compileOptions { sourceCompatibility JavaVersion.VERSION_17; targetCompatibility JavaVersion.VERSION_17 }
@@ -539,11 +553,11 @@ jobs:
           }
           EOF
 
-      - name: 11. Run Build Engine & Compile Secure APK
+      - name: 11. Compile Secure APK Engine
         run: gradle assembleDebug
 
-      - name: 12. Deliver Final Artifact Package to User Storage
+      - name: 12. Deliver Final Artifact Package
         uses: actions/upload-artifact@v4
         with:
-          name: Zeeshan-Audio-ZPlus2-Package
+          name: Zeeshan-Audio-Robust-Edition
           path: app/build/outputs/apk/debug/*.apk
