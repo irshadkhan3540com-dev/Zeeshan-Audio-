@@ -31,14 +31,9 @@ jobs:
           mkdir -p app/src/main/res/layout
           mkdir -p app/src/main/res/drawable
 
-      - name: 4. Design Premium Black-Green-White Identity & Vectors
+      - name: 4. Design Premium Black-Green-White Identity & Vectors (Hindi text via Base64 to avoid encoding corruption)
         run: |
-          cat << 'EOF' > app/src/main/res/values/strings.xml
-          <?xml version="1.0" encoding="utf-8"?>
-          <resources>
-              <string name="app_name">à¤œà¥€à¤¶à¤¾à¤¨ à¤‘à¤¡à¤¿à¤¯à¥‹</string>
-          </resources>
-          EOF
+          echo "PD94bWwgdmVyc2lvbj0iMS4wIiBlbmNvZGluZz0idXRmLTgiPz4KPHJlc291cmNlcz4KICAgIDxzdHJpbmcgbmFtZT0iYXBwX25hbWUiPuCknOClgOCktuCkvuCkqCDgpJHgpKHgpL/gpK/gpYs8L3N0cmluZz4KPC9yZXNvdXJjZXM+Cg==" | base64 -d > app/src/main/res/values/strings.xml
 
           cat << 'EOF' > app/src/main/res/values/colors.xml
           <?xml version="1.0" encoding="utf-8"?>
@@ -89,124 +84,9 @@ jobs:
           </shape>
           EOF
 
-      - name: 5. Build Advanced Studio Dashboard UI (activity_main.xml)
+      - name: 5. Build Advanced Studio Dashboard UI (activity_main.xml via Base64)
         run: |
-          cat << 'EOF' > app/src/main/res/layout/activity_main.xml
-          <?xml version="1.0" encoding="utf-8"?>
-          <ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
-              android:layout_width="match_parent"
-              android:layout_height="match_parent"
-              android:background="@color/studio_black"
-              android:padding="18dp">
-
-              <LinearLayout
-                  android:layout_width="match_parent"
-                  android:layout_height="wrap_content"
-                  android:orientation="vertical">
-
-                  <TextView
-                      android:layout_width="match_parent"
-                      android:layout_height="wrap_content"
-                      android:text="à¤œà¥€à¤¶à¤¾à¤¨ à¤‘à¤¡à¤¿à¤¯à¥‹ à¤ªà¥à¤°à¥‹ à¤‡à¤‚à¤œà¤¨"
-                      android:textColor="@color/matrix_green"
-                      android:textSize="26sp"
-                      android:textStyle="bold"
-                      android:gravity="center"
-                      android:layout_marginTop="10dp"
-                      android:layout_marginBottom="25dp"/>
-
-                  <Button
-                      android:id="@+id/btnUploadPdf"
-                      android:layout_width="match_parent"
-                      android:layout_height="58dp"
-                      android:text="ðŸ“ à¤¸à¥à¤®à¤¾à¤°à¥à¤Ÿ à¤ªà¥€à¤¡à¥€à¤à¤« à¤²à¥‹à¤¡ à¤•à¤°à¥‡à¤‚ (PDF Import)"
-                      android:backgroundTint="@color/matrix_green"
-                      android:textColor="@color/studio_black"
-                      android:textStyle="bold"
-                      android:layout_marginBottom="15dp"/>
-
-                  <EditText
-                      android:id="@+id/etGitaText"
-                      android:layout_width="match_parent"
-                      android:layout_height="240dp"
-                      android:hint="à¤¯à¤¹à¤¾à¤ à¤ªà¤¾à¤  à¤ªà¥‡à¤¸à¥à¤Ÿ à¤•à¤°à¥‡à¤‚ à¤¯à¤¾ à¤Šà¤ªà¤° à¤¬à¤Ÿà¤¨ à¤¦à¤¬à¤¾à¤•à¤° à¤¸à¥€à¤§à¥‡ à¤•à¤¿à¤¸à¥€ à¤­à¥€ à¤ªà¥€à¤¡à¥€à¤à¤« à¤¸à¥‡ à¤Ÿà¥‡à¤•à¥à¤¸à¥à¤Ÿ à¤¨à¤¿à¤•à¤¾à¤²à¥‡à¤‚..."
-                      android:gravity="top|start"
-                      android:background="@drawable/neon_input_border"
-                      android:padding="14dp"
-                      android:textColorHint="@color/text_secondary_muted"
-                      android:inputType="textMultiLine"
-                      android:scrollbars="vertical"
-                      android:textColor="@color/pure_white"
-                      android:layout_marginBottom="20dp"/>
-
-                  <TextView
-                      android:layout_width="wrap_content"
-                      android:layout_height="wrap_content"
-                      android:text="à¤†à¤µà¤¾à¤œ à¤•à¥€ à¤—à¤¤à¤¿ à¤¨à¤¿à¤¯à¤‚à¤¤à¥à¤°à¤£ (Speed Controller):"
-                      android:textStyle="bold"
-                      android:textColor="@color/text_secondary_muted"
-                      android:layout_marginBottom="5dp"/>
-
-                  <SeekBar
-                      android:id="@+id/sbSpeed"
-                      android:layout_width="match_parent"
-                      android:layout_height="wrap_content"
-                      android:max="20"
-                      android:progress="10"
-                      android:layout_marginBottom="25dp"/>
-
-                  <LinearLayout
-                      android:layout_width="match_parent"
-                      android:layout_height="wrap_content"
-                      android:orientation="horizontal"
-                      android:weightSum="2"
-                      android:layout_marginBottom="15dp">
-
-                      <Button
-                          android:id="@+id/btnPlayLive"
-                          android:layout_width="0dp"
-                          android:layout_height="56dp"
-                          android:layout_weight="1"
-                          android:text="â–¶ï¸ à¤²à¤¾à¤‡à¤µ à¤ªà¥à¤²à¥‡"
-                          android:backgroundTint="@color/pure_white"
-                          android:textColor="@color/studio_black"
-                          android:textStyle="bold"
-                          android:layout_marginEnd="6dp"/>
-
-                      <Button
-                          android:id="@+id/btnStop"
-                          android:layout_width="0dp"
-                          android:layout_height="56dp"
-                          android:layout_weight="1"
-                          android:text="â±ï¸ à¤¸à¥à¤Ÿà¥‰à¤ª à¤ªà¥à¤²à¥‡à¤¯à¤°"
-                          android:backgroundTint="@color/stop_btn_gray"
-                          android:textColor="@color/pure_white"
-                          android:layout_marginStart="6dp"/>
-                  </LinearLayout>
-
-                  <Button
-                      android:id="@+id/btnExportAudio"
-                      android:layout_width="match_parent"
-                      android:layout_height="62dp"
-                      android:text="ðŸ’¾ à¤—à¥ˆà¤²à¤°à¥€ à¤®à¥‡à¤‚ à¤¸à¥€à¤§à¤¾ à¤Ÿà¥à¤°à¥ˆà¤• (WAV) à¤¬à¤¨à¤¾à¤•à¤° à¤¸à¤¹à¥‡à¤œà¥‡à¤‚"
-                      android:backgroundTint="@color/matrix_green"
-                      android:textSize="15sp"
-                      android:textStyle="bold"
-                      android:textColor="@color/studio_black"/>
-
-                  <TextView
-                      android:id="@+id/tvStatus"
-                      android:layout_width="match_parent"
-                      android:layout_height="wrap_content"
-                      android:text="à¤¸à¤¿à¤¸à¥à¤Ÿà¤® à¤¸à¥à¤¥à¤¿à¤¤à¤¿: à¤°à¥‡à¤¡à¥€"
-                      android:gravity="center"
-                      android:layout_marginTop="20dp"
-                      android:textColor="@color/pure_white"
-                      android:textStyle="italic"/>
-
-              </LinearLayout>
-          </ScrollView>
-          EOF
+          echo "PD94bWwgdmVyc2lvbj0iMS4wIiBlbmNvZGluZz0idXRmLTgiPz4KPFNjcm9sbFZpZXcgeG1sbnM6YW5kcm9pZD0iaHR0cDovL3NjaGVtYXMuYW5kcm9pZC5jb20vYXBrL3Jlcy9hbmRyb2lkIgogICAgYW5kcm9pZDpsYXlvdXRfd2lkdGg9Im1hdGNoX3BhcmVudCIKICAgIGFuZHJvaWQ6bGF5b3V0X2hlaWdodD0ibWF0Y2hfcGFyZW50IgogICAgYW5kcm9pZDpiYWNrZ3JvdW5kPSJAY29sb3Ivc3R1ZGlvX2JsYWNrIgogICAgYW5kcm9pZDpwYWRkaW5nPSIxOGRwIj4KCiAgICA8TGluZWFyTGF5b3V0CiAgICAgICAgYW5kcm9pZDpsYXlvdXRfd2lkdGg9Im1hdGNoX3BhcmVudCIKICAgICAgICBhbmRyb2lkOmxheW91dF9oZWlnaHQ9IndyYXBfY29udGVudCIKICAgICAgICBhbmRyb2lkOm9yaWVudGF0aW9uPSJ2ZXJ0aWNhbCI+CgogICAgICAgIDxUZXh0VmlldwogICAgICAgICAgICBhbmRyb2lkOmxheW91dF93aWR0aD0ibWF0Y2hfcGFyZW50IgogICAgICAgICAgICBhbmRyb2lkOmxheW91dF9oZWlnaHQ9IndyYXBfY29udGVudCIKICAgICAgICAgICAgYW5kcm9pZDp0ZXh0PSLgpJzgpYDgpLbgpL7gpKgg4KSR4KSh4KS/4KSv4KWLIOCkquCljeCksOCliyDgpIfgpILgpJzgpKgiCiAgICAgICAgICAgIGFuZHJvaWQ6dGV4dENvbG9yPSJAY29sb3IvbWF0cml4X2dyZWVuIgogICAgICAgICAgICBhbmRyb2lkOnRleHRTaXplPSIyNnNwIgogICAgICAgICAgICBhbmRyb2lkOnRleHRTdHlsZT0iYm9sZCIKICAgICAgICAgICAgYW5kcm9pZDpncmF2aXR5PSJjZW50ZXIiCiAgICAgICAgICAgIGFuZHJvaWQ6bGF5b3V0X21hcmdpblRvcD0iMTBkcCIKICAgICAgICAgICAgYW5kcm9pZDpsYXlvdXRfbWFyZ2luQm90dG9tPSIyNWRwIi8+CgogICAgICAgIDxCdXR0b24KICAgICAgICAgICAgYW5kcm9pZDppZD0iQCtpZC9idG5VcGxvYWRQZGYiCiAgICAgICAgICAgIGFuZHJvaWQ6bGF5b3V0X3dpZHRoPSJtYXRjaF9wYXJlbnQiCiAgICAgICAgICAgIGFuZHJvaWQ6bGF5b3V0X2hlaWdodD0iNThkcCIKICAgICAgICAgICAgYW5kcm9pZDp0ZXh0PSLwn5OBIOCkuOCljeCkruCkvuCksOCljeCknyDgpKrgpYDgpKHgpYDgpI/gpKsg4KSy4KWL4KShIOCkleCksOClh+CkgiAoUERGIEltcG9ydCkiCiAgICAgICAgICAgIGFuZHJvaWQ6YmFja2dyb3VuZFRpbnQ9IkBjb2xvci9tYXRyaXhfZ3JlZW4iCiAgICAgICAgICAgIGFuZHJvaWQ6dGV4dENvbG9yPSJAY29sb3Ivc3R1ZGlvX2JsYWNrIgogICAgICAgICAgICBhbmRyb2lkOnRleHRTdHlsZT0iYm9sZCIKICAgICAgICAgICAgYW5kcm9pZDpsYXlvdXRfbWFyZ2luQm90dG9tPSIxNWRwIi8+CgogICAgICAgIDxFZGl0VGV4dAogICAgICAgICAgICBhbmRyb2lkOmlkPSJAK2lkL2V0R2l0YVRleHQiCiAgICAgICAgICAgIGFuZHJvaWQ6bGF5b3V0X3dpZHRoPSJtYXRjaF9wYXJlbnQiCiAgICAgICAgICAgIGFuZHJvaWQ6bGF5b3V0X2hlaWdodD0iMjQwZHAiCiAgICAgICAgICAgIGFuZHJvaWQ6aGludD0i4KSv4KS54KS+4KSBIOCkquCkvuCkoCDgpKrgpYfgpLjgpY3gpJ8g4KSV4KSw4KWH4KSCIOCkr+CkviDgpIrgpKrgpLAg4KSs4KSf4KSoIOCkpuCkrOCkvuCkleCksCDgpLjgpYDgpKfgpYcg4KSV4KS/4KS44KWAIOCkreClgCDgpKrgpYDgpKHgpYDgpI/gpKsg4KS44KWHIOCkn+Clh+CkleCljeCkuOCljeCknyDgpKjgpL/gpJXgpL7gpLLgpYfgpIIuLi4iCiAgICAgICAgICAgIGFuZHJvaWQ6Z3Jhdml0eT0idG9wfHN0YXJ0IgogICAgICAgICAgICBhbmRyb2lkOmJhY2tncm91bmQ9IkBkcmF3YWJsZS9uZW9uX2lucHV0X2JvcmRlciIKICAgICAgICAgICAgYW5kcm9pZDpwYWRkaW5nPSIxNGRwIgogICAgICAgICAgICBhbmRyb2lkOnRleHRDb2xvckhpbnQ9IkBjb2xvci90ZXh0X3NlY29uZGFyeV9tdXRlZCIKICAgICAgICAgICAgYW5kcm9pZDppbnB1dFR5cGU9InRleHRNdWx0aUxpbmUiCiAgICAgICAgICAgIGFuZHJvaWQ6c2Nyb2xsYmFycz0idmVydGljYWwiCiAgICAgICAgICAgIGFuZHJvaWQ6dGV4dENvbG9yPSJAY29sb3IvcHVyZV93aGl0ZSIKICAgICAgICAgICAgYW5kcm9pZDpsYXlvdXRfbWFyZ2luQm90dG9tPSIyMGRwIi8+CgogICAgICAgIDxUZXh0VmlldwogICAgICAgICAgICBhbmRyb2lkOmxheW91dF93aWR0aD0id3JhcF9jb250ZW50IgogICAgICAgICAgICBhbmRyb2lkOmxheW91dF9oZWlnaHQ9IndyYXBfY29udGVudCIKICAgICAgICAgICAgYW5kcm9pZDp0ZXh0PSLgpIbgpLXgpL7gpJwg4KSV4KWAIOCkl+CkpOCkvyDgpKjgpL/gpK/gpILgpKTgpY3gpLDgpKMgKFNwZWVkIENvbnRyb2xsZXIpOiIKICAgICAgICAgICAgYW5kcm9pZDp0ZXh0U3R5bGU9ImJvbGQiCiAgICAgICAgICAgIGFuZHJvaWQ6dGV4dENvbG9yPSJAY29sb3IvdGV4dF9zZWNvbmRhcnlfbXV0ZWQiCiAgICAgICAgICAgIGFuZHJvaWQ6bGF5b3V0X21hcmdpbkJvdHRvbT0iNWRwIi8+CgogICAgICAgIDxTZWVrQmFyCiAgICAgICAgICAgIGFuZHJvaWQ6aWQ9IkAraWQvc2JTcGVlZCIKICAgICAgICAgICAgYW5kcm9pZDpsYXlvdXRfd2lkdGg9Im1hdGNoX3BhcmVudCIKICAgICAgICAgICAgYW5kcm9pZDpsYXlvdXRfaGVpZ2h0PSJ3cmFwX2NvbnRlbnQiCiAgICAgICAgICAgIGFuZHJvaWQ6bWF4PSIyMCIKICAgICAgICAgICAgYW5kcm9pZDpwcm9ncmVzcz0iMTAiCiAgICAgICAgICAgIGFuZHJvaWQ6bGF5b3V0X21hcmdpbkJvdHRvbT0iMjVkcCIvPgoKICAgICAgICA8TGluZWFyTGF5b3V0CiAgICAgICAgICAgIGFuZHJvaWQ6bGF5b3V0X3dpZHRoPSJtYXRjaF9wYXJlbnQiCiAgICAgICAgICAgIGFuZHJvaWQ6bGF5b3V0X2hlaWdodD0id3JhcF9jb250ZW50IgogICAgICAgICAgICBhbmRyb2lkOm9yaWVudGF0aW9uPSJob3Jpem9udGFsIgogICAgICAgICAgICBhbmRyb2lkOndlaWdodFN1bT0iMiIKICAgICAgICAgICAgYW5kcm9pZDpsYXlvdXRfbWFyZ2luQm90dG9tPSIxNWRwIj4KCiAgICAgICAgICAgIDxCdXR0b24KICAgICAgICAgICAgICAgIGFuZHJvaWQ6aWQ9IkAraWQvYnRuUGxheUxpdmUiCiAgICAgICAgICAgICAgICBhbmRyb2lkOmxheW91dF93aWR0aD0iMGRwIgogICAgICAgICAgICAgICAgYW5kcm9pZDpsYXlvdXRfaGVpZ2h0PSI1NmRwIgogICAgICAgICAgICAgICAgYW5kcm9pZDpsYXlvdXRfd2VpZ2h0PSIxIgogICAgICAgICAgICAgICAgYW5kcm9pZDp0ZXh0PSLilrbvuI8g4KSy4KS+4KSH4KS1IOCkquCljeCksuClhyIKICAgICAgICAgICAgICAgIGFuZHJvaWQ6YmFja2dyb3VuZFRpbnQ9IkBjb2xvci9wdXJlX3doaXRlIgogICAgICAgICAgICAgICAgYW5kcm9pZDp0ZXh0Q29sb3I9IkBjb2xvci9zdHVkaW9fYmxhY2siCiAgICAgICAgICAgICAgICBhbmRyb2lkOnRleHRTdHlsZT0iYm9sZCIKICAgICAgICAgICAgICAgIGFuZHJvaWQ6bGF5b3V0X21hcmdpbkVuZD0iNmRwIi8+CgogICAgICAgICAgICA8QnV0dG9uCiAgICAgICAgICAgICAgICBhbmRyb2lkOmlkPSJAK2lkL2J0blN0b3AiCiAgICAgICAgICAgICAgICBhbmRyb2lkOmxheW91dF93aWR0aD0iMGRwIgogICAgICAgICAgICAgICAgYW5kcm9pZDpsYXlvdXRfaGVpZ2h0PSI1NmRwIgogICAgICAgICAgICAgICAgYW5kcm9pZDpsYXlvdXRfd2VpZ2h0PSIxIgogICAgICAgICAgICAgICAgYW5kcm9pZDp0ZXh0PSLij7HvuI8g4KS44KWN4KSf4KWJ4KSqIOCkquCljeCksuClh+Ckr+CksCIKICAgICAgICAgICAgICAgIGFuZHJvaWQ6YmFja2dyb3VuZFRpbnQ9IkBjb2xvci9zdG9wX2J0bl9ncmF5IgogICAgICAgICAgICAgICAgYW5kcm9pZDp0ZXh0Q29sb3I9IkBjb2xvci9wdXJlX3doaXRlIgogICAgICAgICAgICAgICAgYW5kcm9pZDpsYXlvdXRfbWFyZ2luU3RhcnQ9IjZkcCIvPgogICAgICAgIDwvTGluZWFyTGF5b3V0PgoKICAgICAgICA8QnV0dG9uCiAgICAgICAgICAgIGFuZHJvaWQ6aWQ9IkAraWQvYnRuRXhwb3J0QXVkaW8iCiAgICAgICAgICAgIGFuZHJvaWQ6bGF5b3V0X3dpZHRoPSJtYXRjaF9wYXJlbnQiCiAgICAgICAgICAgIGFuZHJvaWQ6bGF5b3V0X2hlaWdodD0iNjJkcCIKICAgICAgICAgICAgYW5kcm9pZDp0ZXh0PSLwn5K+IOCkl+CliOCksuCksOClgCDgpK7gpYfgpIIg4KS44KWA4KSn4KS+IOCkn+CljeCksOCliOCklSAoV0FWKSDgpKzgpKjgpL7gpJXgpLAg4KS44KS54KWH4KSc4KWH4KSCIgogICAgICAgICAgICBhbmRyb2lkOmJhY2tncm91bmRUaW50PSJAY29sb3IvbWF0cml4X2dyZWVuIgogICAgICAgICAgICBhbmRyb2lkOnRleHRTaXplPSIxNXNwIgogICAgICAgICAgICBhbmRyb2lkOnRleHRTdHlsZT0iYm9sZCIKICAgICAgICAgICAgYW5kcm9pZDp0ZXh0Q29sb3I9IkBjb2xvci9zdHVkaW9fYmxhY2siLz4KCiAgICAgICAgPFRleHRWaWV3CiAgICAgICAgICAgIGFuZHJvaWQ6aWQ9IkAraWQvdHZTdGF0dXMiCiAgICAgICAgICAgIGFuZHJvaWQ6bGF5b3V0X3dpZHRoPSJtYXRjaF9wYXJlbnQiCiAgICAgICAgICAgIGFuZHJvaWQ6bGF5b3V0X2hlaWdodD0id3JhcF9jb250ZW50IgogICAgICAgICAgICBhbmRyb2lkOnRleHQ9IuCkuOCkv+CkuOCljeCkn+CkriDgpLjgpY3gpKXgpL/gpKTgpL86IOCksOClh+CkoeClgCIKICAgICAgICAgICAgYW5kcm9pZDpncmF2aXR5PSJjZW50ZXIiCiAgICAgICAgICAgIGFuZHJvaWQ6bGF5b3V0X21hcmdpblRvcD0iMjBkcCIKICAgICAgICAgICAgYW5kcm9pZDp0ZXh0Q29sb3I9IkBjb2xvci9wdXJlX3doaXRlIgogICAgICAgICAgICBhbmRyb2lkOnRleHRTdHlsZT0iaXRhbGljIi8+CgogICAgPC9MaW5lYXJMYXlvdXQ+CjwvU2Nyb2xsVmlldz4K" | base64 -d > app/src/main/res/layout/activity_main.xml
 
       - name: 6. Build High-Performance PDF Extractor (PDFExtractor.kt)
         run: |
@@ -237,7 +117,7 @@ jobs:
                       return@withContext stripper.getText(pdfDocument) ?: ""
                   } catch (e: Exception) {
                       e.printStackTrace()
-                      return@withContext "à¤ªà¥€à¤¡à¥€à¤à¤« à¤•à¥‹ à¤¡à¥€à¤•à¥‹à¤¡ à¤•à¤°à¤¨à¥‡ à¤®à¥‡à¤‚ à¤µà¤¿à¤«à¤²: ${e.localizedMessage}"
+                      return@withContext "PDF decode failed: ${e.localizedMessage}"
                   } finally {
                       try { pdfDocument?.close() } catch (ex: Exception) {}
                   }
@@ -245,225 +125,13 @@ jobs:
           }
           EOF
 
-      - name: 7. Build Core AI Speech Engine (TTSEngineManager.kt)
+      - name: 7. Build Core AI Speech Engine (TTSEngineManager.kt via Base64)
         run: |
-          cat << 'EOF' > app/src/main/java/com/zeeshan/audio/engine/TTSEngineManager.kt
-          package com.zeeshan.audio.engine
+          echo "cGFja2FnZSBjb20uemVlc2hhbi5hdWRpby5lbmdpbmUKCmltcG9ydCBhbmRyb2lkLmNvbnRlbnQuQ29udGVudFZhbHVlcwppbXBvcnQgYW5kcm9pZC5jb250ZW50LkNvbnRleHQKaW1wb3J0IGFuZHJvaWQub3MuQnVpbGQKaW1wb3J0IGFuZHJvaWQub3MuQnVuZGxlCmltcG9ydCBhbmRyb2lkLm9zLkVudmlyb25tZW50CmltcG9ydCBhbmRyb2lkLnByb3ZpZGVyLk1lZGlhU3RvcmUKaW1wb3J0IGFuZHJvaWQuc3BlZWNoLnR0cy5UZXh0VG9TcGVlY2gKaW1wb3J0IGFuZHJvaWQuc3BlZWNoLnR0cy5VdHRlcmFuY2VQcm9ncmVzc0xpc3RlbmVyCmltcG9ydCBqYXZhLmlvLkZpbGUKaW1wb3J0IGphdmEudXRpbC5Mb2NhbGUKCmNsYXNzIFRUU0VuZ2luZU1hbmFnZXIocHJpdmF0ZSB2YWwgY29udGV4dDogQ29udGV4dCwgcHJpdmF0ZSB2YWwgb25SZWFkeTogKCkgLT4gVW5pdCkgewogICAgcHJpdmF0ZSB2YXIgdHRzOiBUZXh0VG9TcGVlY2g/ID0gbnVsbAogICAgcHJpdmF0ZSB2YXIgaXNJbml0aWFsaXplZCA9IGZhbHNlCgogICAgaW5pdCB7CiAgICAgICAgdHRzID0gVGV4dFRvU3BlZWNoKGNvbnRleHQpIHsgc3RhdHVzIC0+CiAgICAgICAgICAgIGlmIChzdGF0dXMgPT0gVGV4dFRvU3BlZWNoLlNVQ0NFU1MpIHsKICAgICAgICAgICAgICAgIHZhbCByZXN1bHQgPSB0dHM/LnNldExhbmd1YWdlKExvY2FsZSgiaGkiLCAiSU4iKSkKICAgICAgICAgICAgICAgIGlmIChyZXN1bHQgPT0gVGV4dFRvU3BlZWNoLkxBTkdfTUlTU0lOR19EQVRBIHx8IHJlc3VsdCA9PSBUZXh0VG9TcGVlY2guTEFOR19OT1RfU1VQUE9SVEVEKSB7CiAgICAgICAgICAgICAgICAgICAgdHRzPy5zZXRMYW5ndWFnZShMb2NhbGUuVVMpCiAgICAgICAgICAgICAgICB9CiAgICAgICAgICAgICAgICB0dHM/LnNldFBpdGNoKDEuMGYpCiAgICAgICAgICAgICAgICBpc0luaXRpYWxpemVkID0gdHJ1ZQogICAgICAgICAgICAgICAgb25SZWFkeSgpCiAgICAgICAgICAgIH0KICAgICAgICB9CiAgICB9CgogICAgZnVuIHNldFNwZWVkKHNwZWVkOiBGbG9hdCkgewogICAgICAgIGlmIChpc0luaXRpYWxpemVkKSB0dHM/LnNldFNwZWVjaFJhdGUoc3BlZWQpCiAgICB9CgogICAgZnVuIHNwZWFrTGl2ZSh0ZXh0OiBTdHJpbmcpIHsKICAgICAgICBpZiAoIWlzSW5pdGlhbGl6ZWQgfHwgdGV4dC5pc0VtcHR5KCkpIHJldHVybgogICAgICAgIHR0cz8uc3RvcCgpCiAgICAgICAgdmFsIGNodW5rcyA9IHRleHQuY2h1bmtlZCgzMDAwKQogICAgICAgIGNodW5rcy5mb3JFYWNoSW5kZXhlZCB7IGluZGV4LCBjaHVuayAtPgogICAgICAgICAgICB0dHM/LnNwZWFrKGNodW5rLCBUZXh0VG9TcGVlY2guUVVFVUVfQURELCBudWxsLCAiY2h1bmtfJGluZGV4IikKICAgICAgICB9CiAgICB9CgogICAgZnVuIGV4cG9ydFRvR2FsbGVyeSh0ZXh0OiBTdHJpbmcsIHRpdGxlOiBTdHJpbmcsIG9uU3RhdHVzVXBkYXRlOiAoU3RyaW5nKSAtPiBVbml0KSB7CiAgICAgICAgaWYgKCFpc0luaXRpYWxpemVkIHx8IHRleHQuaXNFbXB0eSgpKSB7CiAgICAgICAgICAgIG9uU3RhdHVzVXBkYXRlKCLgpLjgpL/gpLjgpY3gpJ/gpK4g4KSP4KSw4KSwOiDgpJ/gpYfgpJXgpY3gpLjgpY3gpJ8g4KSW4KS+4KSy4KWAIOCkueCliCDgpK/gpL4g4KS14KWJ4KSH4KS4IOCkh+CkguCknOCkqCDgpLLgpYvgpKEg4KSo4KS54KWA4KSCIOCkueClgeCkhuClpCIpCiAgICAgICAgICAgIHJldHVybgogICAgICAgIH0KICAgICAgICBvblN0YXR1c1VwZGF0ZSgi4KS44KWN4KSu4KS+4KSw4KWN4KSfIOCksOCkv+CkleClieCksOCljeCkoeCksCDgpLjgpJXgpY3gpLDgpL/gpK86IOCkn+CljeCksOCliOCklSDgpJXgpILgpKrgpL7gpIfgpLIg4KSV4KS/4KSv4KS+IOCknOCkviDgpLDgpLngpL4g4KS54KWILi4uIikKCiAgICAgICAgdmFsIHRlbXBGaWxlID0gRmlsZShjb250ZXh0LmdldEV4dGVybmFsRmlsZXNEaXIoRW52aXJvbm1lbnQuRElSRUNUT1JZX01VU0lDKSwgIiR0aXRsZS53YXYiKQogICAgICAgIHZhbCBwYXJhbXMgPSBCdW5kbGUoKS5hcHBseSB7CiAgICAgICAgICAgIHB1dFN0cmluZyhUZXh0VG9TcGVlY2guRW5naW5lLktFWV9QQVJBTV9VVFRFUkFOQ0VfSUQsICJ6ZWVzaGFuX2F1ZGlvX2V4cG9ydCIpCiAgICAgICAgfQoKICAgICAgICB2YWwgcmVzdWx0ID0gdHRzPy5zeW50aGVzaXplVG9GaWxlKHRleHQsIHBhcmFtcywgdGVtcEZpbGUsICJ6ZWVzaGFuX2F1ZGlvX2V4cG9ydCIpCiAgICAgICAgaWYgKHJlc3VsdCA9PSBUZXh0VG9TcGVlY2guU1VDQ0VTUykgewogICAgICAgICAgICB0dHM/LnNldE9uVXR0ZXJhbmNlUHJvZ3Jlc3NMaXN0ZW5lcihvYmplY3QgOiBVdHRlcmFuY2VQcm9ncmVzc0xpc3RlbmVyKCkgewogICAgICAgICAgICAgICAgb3ZlcnJpZGUgZnVuIG9uU3RhcnQodXR0ZXJhbmNlSWQ6IFN0cmluZz8pIHt9CiAgICAgICAgICAgICAgICBvdmVycmlkZSBmdW4gb25Eb25lKHV0dGVyYW5jZUlkOiBTdHJpbmc/KSB7CiAgICAgICAgICAgICAgICAgICAgc2F2ZVRvUHVibGljTXVzaWNGb2xkZXIoY29udGV4dCwgdGVtcEZpbGUsIHRpdGxlKQogICAgICAgICAgICAgICAgICAgIG9uU3RhdHVzVXBkYXRlKCLwn46JIOCkuOCkueClh+CknOCkviDgpJfgpK/gpL4hIOCkn+CljeCksOCliOCklSDgpKvgpYvgpKgg4KS44KWN4KSf4KWL4KSw4KWH4KScIOCkleClhyAnTXVzaWMvWmVlc2hhbl9BdWRpb3MnIOCkq+CkvOCli+CksuCljeCkoeCksCDgpK7gpYfgpIIg4KSJ4KSq4KSy4KSs4KWN4KSnIOCkueCliOClpCIpCiAgICAgICAgICAgICAgICB9CiAgICAgICAgICAgICAgICBvdmVycmlkZSBmdW4gb25FcnJvcih1dHRlcmFuY2VJZDogU3RyaW5nPykgewogICAgICAgICAgICAgICAgICAgIG9uU3RhdHVzVXBkYXRlKCLinYwg4KSw4KWH4KSC4KSh4KSw4KS/4KSC4KSXIOCkq+Clh+CksiDgpLngpYsg4KSX4KSI4KWkIikKICAgICAgICAgICAgICAgIH0KICAgICAgICAgICAgfSkKICAgICAgICB9IGVsc2UgewogICAgICAgICAgICBvblN0YXR1c1VwZGF0ZSgi4p2MIOCkkeCkoeCkv+Ckr+CliyDgpLjgpL/gpILgpKXgpYfgpLjgpL7gpIfgpJzgpLzgpLAg4KSV4KWLIOCkquCljeCksOCkvuCksOCkguCkrSDgpJXgpLDgpKjgpYcg4KSu4KWH4KSCIOCkheCkuOCkruCksOCljeCkpeClpCIpCiAgICAgICAgfQogICAgfQoKICAgIHByaXZhdGUgZnVuIHNhdmVUb1B1YmxpY011c2ljRm9sZGVyKGNvbnRleHQ6IENvbnRleHQsIHNyY0ZpbGU6IEZpbGUsIHRpdGxlOiBTdHJpbmcpIHsKICAgICAgICB2YWwgcmVzb2x2ZXIgPSBjb250ZXh0LmNvbnRlbnRSZXNvbHZlcgogICAgICAgIHZhbCBhdWRpb0NvbGxlY3Rpb24gPSBpZiAoQnVpbGQuVkVSU0lPTi5TREtfSU5UID49IEJ1aWxkLlZFUlNJT05fQ09ERVMuUSkgewogICAgICAgICAgICBNZWRpYVN0b3JlLkF1ZGlvLk1lZGlhLmdldENvbnRlbnRVcmkoTWVkaWFTdG9yZS5WT0xVTUVfRVhURVJOQUxfUFJJTUFSWSkKICAgICAgICB9IGVsc2UgewogICAgICAgICAgICBNZWRpYVN0b3JlLkF1ZGlvLk1lZGlhLkVYVEVSTkFMX0NPTlRFTlRfVVJJCiAgICAgICAgfQoKICAgICAgICB2YWwgdHJhY2tEZXRhaWxzID0gQ29udGVudFZhbHVlcygpLmFwcGx5IHsKICAgICAgICAgICAgcHV0KE1lZGlhU3RvcmUuQXVkaW8uTWVkaWEuRElTUExBWV9OQU1FLCAiJHRpdGxlLndhdiIpCiAgICAgICAgICAgIHB1dChNZWRpYVN0b3JlLkF1ZGlvLk1lZGlhLk1JTUVfVFlQRSwgImF1ZGlvL3dhdiIpCiAgICAgICAgICAgIHB1dChNZWRpYVN0b3JlLkF1ZGlvLk1lZGlhLlRJVExFLCB0aXRsZSkKICAgICAgICAgICAgaWYgKEJ1aWxkLlZFUlNJT04uU0RLX0lOVCA+PSBCdWlsZC5WRVJTSU9OX0NPREVTLlEpIHsKICAgICAgICAgICAgICAgIHB1dChNZWRpYVN0b3JlLkF1ZGlvLk1lZGlhLlJFTEFUSVZFX1BBVEgsICIke0Vudmlyb25tZW50LkRJUkVDVE9SWV9NVVNJQ30vWmVlc2hhbl9BdWRpb3MiKQogICAgICAgICAgICB9CiAgICAgICAgfQoKICAgICAgICB2YWwgdXJpID0gcmVzb2x2ZXIuaW5zZXJ0KGF1ZGlvQ29sbGVjdGlvbiwgdHJhY2tEZXRhaWxzKQogICAgICAgIHVyaT8ubGV0IHsgZGVzdFVyaSAtPgogICAgICAgICAgICByZXNvbHZlci5vcGVuT3V0cHV0U3RyZWFtKGRlc3RVcmkpPy51c2UgeyBvdXRwdXRTdHJlYW0gLT4KICAgICAgICAgICAgICAgIHNyY0ZpbGUuaW5wdXRTdHJlYW0oKS51c2UgeyBpbnB1dFN0cmVhbSAtPgogICAgICAgICAgICAgICAgICAgIGlucHV0U3RyZWFtLmNvcHlUbyhvdXRwdXRTdHJlYW0pCiAgICAgICAgICAgICAgICB9CiAgICAgICAgICAgIH0KICAgICAgICB9CiAgICB9CgogICAgZnVuIHN0b3AoKSB7IHR0cz8uc3RvcCgpIH0KICAgIGZ1biBzaHV0ZG93bigpIHsgdHRzPy5zaHV0ZG93bigpIH0KfQo=" | base64 -d > app/src/main/java/com/zeeshan/audio/engine/TTSEngineManager.kt
 
-          import android.content.ContentValues
-          import android.content.Context
-          import android.os.Build
-          import android.os.Bundle
-          import android.os.Environment
-          import android.provider.MediaStore
-          import android.speech.tts.TextToSpeech
-          import android.speech.tts.UtteranceProgressListener
-          import java.io.File
-          import java.util.Locale
-
-          class TTSEngineManager(private val context: Context, private val onReady: () -> Unit) {
-              private var tts: TextToSpeech? = null
-              private var isInitialized = false
-
-              init {
-                  tts = TextToSpeech(context) { status ->
-                      if (status == TextToSpeech.SUCCESS) {
-                          val result = tts?.setLanguage(Locale("hi", "IN"))
-                          if (result == TextToSpeech.LANG_MISSING_DATA || result == TextToSpeech.LANG_NOT_SUPPORTED) {
-                              tts?.setLanguage(Locale.US)
-                          }
-                          tts?.setPitch(1.0f)
-                          isInitialized = true
-                          onReady()
-                      }
-                  }
-              }
-
-              fun setSpeed(speed: Float) {
-                  if (isInitialized) tts?.setSpeechRate(speed)
-              }
-
-              fun speakLive(text: String) {
-                  if (!isInitialized || text.isEmpty()) return
-                  tts?.stop()
-                  val chunks = text.chunked(3000)
-                  chunks.forEachIndexed { index, chunk ->
-                      tts?.speak(chunk, TextToSpeech.QUEUE_ADD, null, "chunk_$index")
-                  }
-              }
-
-              fun exportToGallery(text: String, title: String, onStatusUpdate: (String) -> Unit) {
-                  if (!isInitialized || text.isEmpty()) {
-                      onStatusUpdate("à¤¸à¤¿à¤¸à¥à¤Ÿà¤® à¤à¤°à¤°: à¤Ÿà¥‡à¤•à¥à¤¸à¥à¤Ÿ à¤–à¤¾à¤²à¥€ à¤¹à¥ˆ à¤¯à¤¾ à¤µà¥‰à¤‡à¤¸ à¤‡à¤‚à¤œà¤¨ à¤²à¥‹à¤¡ à¤¨à¤¹à¥€à¤‚ à¤¹à¥à¤†à¥¤")
-                      return
-                  }
-                  onStatusUpdate("à¤¸à¥à¤®à¤¾à¤°à¥à¤Ÿ à¤°à¤¿à¤•à¥‰à¤°à¥à¤¡à¤° à¤¸à¤•à¥à¤°à¤¿à¤¯: à¤Ÿà¥à¤°à¥ˆà¤• à¤•à¤‚à¤ªà¤¾à¤‡à¤² à¤•à¤¿à¤¯à¤¾ à¤œà¤¾ à¤°à¤¹à¤¾ à¤¹à¥ˆ...")
-
-                  val tempFile = File(context.getExternalFilesDir(Environment.DIRECTORY_MUSIC), "$title.wav")
-                  val params = Bundle().apply {
-                      putString(TextToSpeech.Engine.KEY_PARAM_UTTERANCE_ID, "zeeshan_audio_export")
-                  }
-
-                  val result = tts?.synthesizeToFile(text, params, tempFile, "zeeshan_audio_export")
-                  if (result == TextToSpeech.SUCCESS) {
-                      tts?.setOnUtteranceProgressListener(object : UtteranceProgressListener() {
-                          override fun onStart(utteranceId: String?) {}
-                          override fun onDone(utteranceId: String?) {
-                              saveToPublicMusicFolder(context, tempFile, title)
-                              onStatusUpdate("ðŸŽ‰ à¤¸à¤¹à¥‡à¤œà¤¾ à¤—à¤¯à¤¾! à¤Ÿà¥à¤°à¥ˆà¤• à¤«à¥‹à¤¨ à¤¸à¥à¤Ÿà¥‹à¤°à¥‡à¤œ à¤•à¥‡ 'Music/Zeeshan_Audios' à¤«à¤¼à¥‹à¤²à¥à¤¡à¤° à¤®à¥‡à¤‚ à¤‰à¤ªà¤²à¤¬à¥à¤§ à¤¹à¥ˆà¥¤")
-                          }
-                          override fun onError(utteranceId: String?) {
-                              onStatusUpdate("âŒ à¤°à¥‡à¤‚à¤¡à¤°à¤¿à¤‚à¤— à¤«à¥‡à¤² à¤¹à¥‹ à¤—à¤ˆà¥¤")
-                          }
-                      })
-                  } else {
-                      onStatusUpdate("âŒ à¤‘à¤¡à¤¿à¤¯à¥‹ à¤¸à¤¿à¤‚à¤¥à¥‡à¤¸à¤¾à¤‡à¤œà¤¼à¤° à¤•à¥‹ à¤ªà¥à¤°à¤¾à¤°à¤‚à¤­ à¤•à¤°à¤¨à¥‡ à¤®à¥‡à¤‚ à¤…à¤¸à¤®à¤°à¥à¤¥à¥¤")
-                  }
-              }
-
-              private fun saveToPublicMusicFolder(context: Context, srcFile: File, title: String) {
-                  val resolver = context.contentResolver
-                  val audioCollection = if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.Q) {
-                      MediaStore.Audio.Media.getContentUri(MediaStore.VOLUME_EXTERNAL_PRIMARY)
-                  } else {
-                      MediaStore.Audio.Media.EXTERNAL_CONTENT_URI
-                  }
-
-                  val trackDetails = ContentValues().apply {
-                      put(MediaStore.Audio.Media.DISPLAY_NAME, "$title.wav")
-                      put(MediaStore.Audio.Media.MIME_TYPE, "audio/wav")
-                      put(MediaStore.Audio.Media.TITLE, title)
-                      if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.Q) {
-                          put(MediaStore.Audio.Media.RELATIVE_PATH, "${Environment.DIRECTORY_MUSIC}/Zeeshan_Audios")
-                      }
-                  }
-
-                  val uri = resolver.insert(audioCollection, trackDetails)
-                  uri?.let { destUri ->
-                      resolver.openOutputStream(destUri)?.use { outputStream ->
-                          srcFile.inputStream().use { inputStream ->
-                              inputStream.copyTo(outputStream)
-                          }
-                      }
-                  }
-              }
-
-              fun stop() { tts?.stop() }
-              fun shutdown() { tts?.shutdown() }
-          }
-          EOF
-
-      - name: 8. Build Optimized App Controller (MainActivity.kt)
+      - name: 8. Build Optimized App Controller (MainActivity.kt via Base64)
         run: |
-          cat << 'EOF' > app/src/main/java/com/zeeshan/audio/MainActivity.kt
-          package com.zeeshan.audio
-
-          import android.app.Activity
-          import android.content.Intent
-          import android.net.Uri
-          import android.os.Bundle
-          import android.widget.*
-          import androidx.activity.result.contract.ActivityResultContracts
-          import androidx.appcompat.app.AppCompatActivity
-          import androidx.lifecycle.lifecycleScope
-          import com.zeeshan.audio.engine.TTSEngineManager
-          import com.zeeshan.audio.utils.PDFExtractor
-          import kotlinx.coroutines.launch
-
-          class MainActivity : AppCompatActivity() {
-              private lateinit var ttsManager: TTSEngineManager
-              private lateinit var etGitaText: EditText
-              private lateinit var tvStatus: TextView
-              private var currentSpeed: Float = 1.0f
-
-              private val pdfPickerLauncher = registerForActivityResult(
-                  ActivityResultContracts.StartActivityForResult()
-              ) { result ->
-                  if (result.resultCode == Activity.RESULT_OK) {
-                      result.data?.data?.let { uri -> loadPdfText(uri) }
-                  }
-              }
-
-              override fun onCreate(savedInstanceState: Bundle?) {
-                  super.onCreate(savedInstanceState)
-                  setContentView(R.layout.activity_main)
-
-                  PDFExtractor.init(this)
-                  etGitaText = findViewById(R.id.etGitaText)
-                  tvStatus = findViewById(R.id.tvStatus)
-
-                  val btnUploadPdf = findViewById<Button>(R.id.btnUploadPdf)
-                  val btnPlayLive = findViewById<Button>(R.id.btnPlayLive)
-                  val btnStop = findViewById<Button>(R.id.btnStop)
-                  val btnExportAudio = findViewById<Button>(R.id.btnExportAudio)
-                  val sbSpeed = findViewById<SeekBar>(R.id.sbSpeed)
-
-                  ttsManager = TTSEngineManager(this) {
-                      runOnUiThread { tvStatus.text = "à¤¸à¤¿à¤¸à¥à¤Ÿà¤® à¤¸à¥à¤¥à¤¿à¤¤à¤¿: à¤à¤†à¤ˆ à¤‘à¤¡à¤¿à¤¯à¥‹ à¤•à¥‹à¤° à¤¸à¤•à¥à¤°à¤¿à¤¯ à¤¹à¥ˆ!" }
-                  }
-
-                  btnUploadPdf.setOnClickListener {
-                      val intent = Intent(Intent.ACTION_GET_CONTENT).apply {
-                          type = "application/pdf"
-                          addCategory(Intent.CATEGORY_OPENABLE)
-                      }
-                      pdfPickerLauncher.launch(intent)
-                  }
-
-                  btnPlayLive.setOnClickListener {
-                      val text = etGitaText.text.toString()
-                      if (text.isNotEmpty()) {
-                          ttsManager.setSpeed(currentSpeed)
-                          ttsManager.speakLive(text)
-                          tvStatus.text = "à¤¸à¥à¤¥à¤¿à¤¤à¤¿: à¤²à¤¾à¤‡à¤µ à¤¬à¥à¤°à¥‰à¤¡à¤•à¤¾à¤¸à¥à¤Ÿ à¤šà¤¾à¤²à¥‚ à¤¹à¥ˆ..."
-                      } else {
-                          Toast.makeText(this, "à¤•à¥ƒà¤ªà¤¯à¤¾ à¤ªà¤¹à¤²à¥‡ à¤•à¥‹à¤ˆ à¤•à¤‚à¤Ÿà¥‡à¤‚à¤Ÿ à¤‡à¤¨à¤ªà¥à¤Ÿ à¤•à¤°à¥‡à¤‚!", Toast.LENGTH_SHORT).show()
-                      }
-                  }
-
-                  btnStop.setOnClickListener {
-                      ttsManager.stop()
-                      tvStatus.text = "à¤¸à¥à¤¥à¤¿à¤¤à¤¿: à¤‘à¤¡à¤¿à¤¯à¥‹ à¤¬à¤‚à¤¦ à¤•à¤¿à¤¯à¤¾ à¤—à¤¯à¤¾"
-                  }
-
-                  btnExportAudio.setOnClickListener {
-                      val text = etGitaText.text.toString()
-                      if (text.isNotEmpty()) {
-                          ttsManager.setSpeed(currentSpeed)
-                          ttsManager.exportToGallery(text, "Zeeshan_Studio_Track_${System.currentTimeMillis()}") { msg ->
-                              runOnUiThread { tvStatus.text = msg }
-                          }
-                      } else {
-                          Toast.makeText(this, "à¤•à¤¨à¤µà¤°à¥à¤Ÿ à¤•à¤°à¤¨à¥‡ à¤•à¥‡ à¤²à¤¿à¤ à¤•à¥‹à¤ˆ à¤Ÿà¥‡à¤•à¥à¤¸à¥à¤Ÿ à¤¨à¤¹à¥€à¤‚ à¤®à¤¿à¤²à¤¾!", Toast.LENGTH_SHORT).show()
-                      }
-                  }
-
-                  sbSpeed.setOnSeekBarChangeListener(object : SeekBar.OnSeekBarChangeListener {
-                      override fun onProgressChanged(seekBar: SeekBar?, progress: Int, fromUser: Boolean) {
-                          currentSpeed = 0.5f + (progress / 20.0f) * 1.5f
-                      }
-                      override fun onStartTrackingTouch(seekBar: SeekBar?) {}
-                      override fun onStopTrackingTouch(seekBar: SeekBar?) {
-                          ttsManager.setSpeed(currentSpeed)
-                      }
-                  })
-              }
-
-              private fun loadPdfText(uri: Uri) {
-                  tvStatus.text = "à¤à¤†à¤ˆ à¤¡à¥€à¤ª à¤¸à¥à¤•à¥ˆà¤¨: à¤ªà¥€à¤¡à¥€à¤à¤« à¤•à¤¾ à¤µà¤¿à¤¶à¥à¤²à¥‡à¤·à¤£ à¤•à¤¿à¤¯à¤¾ à¤œà¤¾ à¤°à¤¹à¤¾ à¤¹à¥ˆ..."
-                  lifecycleScope.launch {
-                      val extractedText = PDFExtractor.extractText(this@MainActivity, uri)
-                      etGitaText.setText(extractedText)
-                      tvStatus.text = "à¤¸à¥à¤¥à¤¿à¤¤à¤¿: à¤ªà¥€à¤¡à¥€à¤à¤« à¤¸à¤«à¤²à¤¤à¤¾à¤ªà¥‚à¤°à¥à¤µà¤• à¤‡à¤®à¥à¤ªà¥‹à¤°à¥à¤Ÿ à¤¹à¥‹ à¤—à¤ˆ!"
-                  }
-              }
-
-              override fun onDestroy() {
-                  super.onDestroy()
-                  ttsManager.shutdown()
-              }
-          }
-          EOF
+          echo "cGFja2FnZSBjb20uemVlc2hhbi5hdWRpbwoKaW1wb3J0IGFuZHJvaWQuYXBwLkFjdGl2aXR5CmltcG9ydCBhbmRyb2lkLmNvbnRlbnQuSW50ZW50CmltcG9ydCBhbmRyb2lkLm5ldC5VcmkKaW1wb3J0IGFuZHJvaWQub3MuQnVuZGxlCmltcG9ydCBhbmRyb2lkLndpZGdldC4qCmltcG9ydCBhbmRyb2lkeC5hY3Rpdml0eS5yZXN1bHQuY29udHJhY3QuQWN0aXZpdHlSZXN1bHRDb250cmFjdHMKaW1wb3J0IGFuZHJvaWR4LmFwcGNvbXBhdC5hcHAuQXBwQ29tcGF0QWN0aXZpdHkKaW1wb3J0IGFuZHJvaWR4LmxpZmVjeWNsZS5saWZlY3ljbGVTY29wZQppbXBvcnQgY29tLnplZXNoYW4uYXVkaW8uZW5naW5lLlRUU0VuZ2luZU1hbmFnZXIKaW1wb3J0IGNvbS56ZWVzaGFuLmF1ZGlvLnV0aWxzLlBERkV4dHJhY3RvcgppbXBvcnQga290bGlueC5jb3JvdXRpbmVzLmxhdW5jaAoKY2xhc3MgTWFpbkFjdGl2aXR5IDogQXBwQ29tcGF0QWN0aXZpdHkoKSB7CiAgICBwcml2YXRlIGxhdGVpbml0IHZhciB0dHNNYW5hZ2VyOiBUVFNFbmdpbmVNYW5hZ2VyCiAgICBwcml2YXRlIGxhdGVpbml0IHZhciBldEdpdGFUZXh0OiBFZGl0VGV4dAogICAgcHJpdmF0ZSBsYXRlaW5pdCB2YXIgdHZTdGF0dXM6IFRleHRWaWV3CiAgICBwcml2YXRlIHZhciBjdXJyZW50U3BlZWQ6IEZsb2F0ID0gMS4wZgoKICAgIHByaXZhdGUgdmFsIHBkZlBpY2tlckxhdW5jaGVyID0gcmVnaXN0ZXJGb3JBY3Rpdml0eVJlc3VsdCgKICAgICAgICBBY3Rpdml0eVJlc3VsdENvbnRyYWN0cy5TdGFydEFjdGl2aXR5Rm9yUmVzdWx0KCkKICAgICkgeyByZXN1bHQgLT4KICAgICAgICBpZiAocmVzdWx0LnJlc3VsdENvZGUgPT0gQWN0aXZpdHkuUkVTVUxUX09LKSB7CiAgICAgICAgICAgIHJlc3VsdC5kYXRhPy5kYXRhPy5sZXQgeyB1cmkgLT4gbG9hZFBkZlRleHQodXJpKSB9CiAgICAgICAgfQogICAgfQoKICAgIG92ZXJyaWRlIGZ1biBvbkNyZWF0ZShzYXZlZEluc3RhbmNlU3RhdGU6IEJ1bmRsZT8pIHsKICAgICAgICBzdXBlci5vbkNyZWF0ZShzYXZlZEluc3RhbmNlU3RhdGUpCiAgICAgICAgc2V0Q29udGVudFZpZXcoUi5sYXlvdXQuYWN0aXZpdHlfbWFpbikKCiAgICAgICAgUERGRXh0cmFjdG9yLmluaXQodGhpcykKICAgICAgICBldEdpdGFUZXh0ID0gZmluZFZpZXdCeUlkKFIuaWQuZXRHaXRhVGV4dCkKICAgICAgICB0dlN0YXR1cyA9IGZpbmRWaWV3QnlJZChSLmlkLnR2U3RhdHVzKQoKICAgICAgICB2YWwgYnRuVXBsb2FkUGRmID0gZmluZFZpZXdCeUlkPEJ1dHRvbj4oUi5pZC5idG5VcGxvYWRQZGYpCiAgICAgICAgdmFsIGJ0blBsYXlMaXZlID0gZmluZFZpZXdCeUlkPEJ1dHRvbj4oUi5pZC5idG5QbGF5TGl2ZSkKICAgICAgICB2YWwgYnRuU3RvcCA9IGZpbmRWaWV3QnlJZDxCdXR0b24+KFIuaWQuYnRuU3RvcCkKICAgICAgICB2YWwgYnRuRXhwb3J0QXVkaW8gPSBmaW5kVmlld0J5SWQ8QnV0dG9uPihSLmlkLmJ0bkV4cG9ydEF1ZGlvKQogICAgICAgIHZhbCBzYlNwZWVkID0gZmluZFZpZXdCeUlkPFNlZWtCYXI+KFIuaWQuc2JTcGVlZCkKCiAgICAgICAgdHRzTWFuYWdlciA9IFRUU0VuZ2luZU1hbmFnZXIodGhpcykgewogICAgICAgICAgICBydW5PblVpVGhyZWFkIHsgdHZTdGF0dXMudGV4dCA9ICLgpLjgpL/gpLjgpY3gpJ/gpK4g4KS44KWN4KSl4KS/4KSk4KS/OiDgpI/gpIbgpIgg4KSR4KSh4KS/4KSv4KWLIOCkleCli+CksCDgpLjgpJXgpY3gpLDgpL/gpK8g4KS54KWIISIgfQogICAgICAgIH0KCiAgICAgICAgYnRuVXBsb2FkUGRmLnNldE9uQ2xpY2tMaXN0ZW5lciB7CiAgICAgICAgICAgIHZhbCBpbnRlbnQgPSBJbnRlbnQoSW50ZW50LkFDVElPTl9HRVRfQ09OVEVOVCkuYXBwbHkgewogICAgICAgICAgICAgICAgdHlwZSA9ICJhcHBsaWNhdGlvbi9wZGYiCiAgICAgICAgICAgICAgICBhZGRDYXRlZ29yeShJbnRlbnQuQ0FURUdPUllfT1BFTkFCTEUpCiAgICAgICAgICAgIH0KICAgICAgICAgICAgcGRmUGlja2VyTGF1bmNoZXIubGF1bmNoKGludGVudCkKICAgICAgICB9CgogICAgICAgIGJ0blBsYXlMaXZlLnNldE9uQ2xpY2tMaXN0ZW5lciB7CiAgICAgICAgICAgIHZhbCB0ZXh0ID0gZXRHaXRhVGV4dC50ZXh0LnRvU3RyaW5nKCkKICAgICAgICAgICAgaWYgKHRleHQuaXNOb3RFbXB0eSgpKSB7CiAgICAgICAgICAgICAgICB0dHNNYW5hZ2VyLnNldFNwZWVkKGN1cnJlbnRTcGVlZCkKICAgICAgICAgICAgICAgIHR0c01hbmFnZXIuc3BlYWtMaXZlKHRleHQpCiAgICAgICAgICAgICAgICB0dlN0YXR1cy50ZXh0ID0gIuCkuOCljeCkpeCkv+CkpOCkvzog4KSy4KS+4KSH4KS1IOCkrOCljeCksOClieCkoeCkleCkvuCkuOCljeCknyDgpJrgpL7gpLLgpYIg4KS54KWILi4uIgogICAgICAgICAgICB9IGVsc2UgewogICAgICAgICAgICAgICAgVG9hc3QubWFrZVRleHQodGhpcywgIuCkleClg+CkquCkr+CkviDgpKrgpLngpLLgpYcg4KSV4KWL4KSIIOCkleCkguCkn+Clh+CkguCknyDgpIfgpKjgpKrgpYHgpJ8g4KSV4KSw4KWH4KSCISIsIFRvYXN0LkxFTkdUSF9TSE9SVCkuc2hvdygpCiAgICAgICAgICAgIH0KICAgICAgICB9CgogICAgICAgIGJ0blN0b3Auc2V0T25DbGlja0xpc3RlbmVyIHsKICAgICAgICAgICAgdHRzTWFuYWdlci5zdG9wKCkKICAgICAgICAgICAgdHZTdGF0dXMudGV4dCA9ICLgpLjgpY3gpKXgpL/gpKTgpL86IOCkkeCkoeCkv+Ckr+CliyDgpKzgpILgpKYg4KSV4KS/4KSv4KS+IOCkl+Ckr+CkviIKICAgICAgICB9CgogICAgICAgIGJ0bkV4cG9ydEF1ZGlvLnNldE9uQ2xpY2tMaXN0ZW5lciB7CiAgICAgICAgICAgIHZhbCB0ZXh0ID0gZXRHaXRhVGV4dC50ZXh0LnRvU3RyaW5nKCkKICAgICAgICAgICAgaWYgKHRleHQuaXNOb3RFbXB0eSgpKSB7CiAgICAgICAgICAgICAgICB0dHNNYW5hZ2VyLnNldFNwZWVkKGN1cnJlbnRTcGVlZCkKICAgICAgICAgICAgICAgIHR0c01hbmFnZXIuZXhwb3J0VG9HYWxsZXJ5KHRleHQsICJaZWVzaGFuX1N0dWRpb19UcmFja18ke1N5c3RlbS5jdXJyZW50VGltZU1pbGxpcygpfSIpIHsgbXNnIC0+CiAgICAgICAgICAgICAgICAgICAgcnVuT25VaVRocmVhZCB7IHR2U3RhdHVzLnRleHQgPSBtc2cgfQogICAgICAgICAgICAgICAgfQogICAgICAgICAgICB9IGVsc2UgewogICAgICAgICAgICAgICAgVG9hc3QubWFrZVRleHQodGhpcywgIuCkleCkqOCkteCksOCljeCknyDgpJXgpLDgpKjgpYcg4KSV4KWHIOCksuCkv+CkjyDgpJXgpYvgpIgg4KSf4KWH4KSV4KWN4KS44KWN4KSfIOCkqOCkueClgOCkgiDgpK7gpL/gpLLgpL4hIiwgVG9hc3QuTEVOR1RIX1NIT1JUKS5zaG93KCkKICAgICAgICAgICAgfQogICAgICAgIH0KCiAgICAgICAgc2JTcGVlZC5zZXRPblNlZWtCYXJDaGFuZ2VMaXN0ZW5lcihvYmplY3QgOiBTZWVrQmFyLk9uU2Vla0JhckNoYW5nZUxpc3RlbmVyIHsKICAgICAgICAgICAgb3ZlcnJpZGUgZnVuIG9uUHJvZ3Jlc3NDaGFuZ2VkKHNlZWtCYXI6IFNlZWtCYXI/LCBwcm9ncmVzczogSW50LCBmcm9tVXNlcjogQm9vbGVhbikgewogICAgICAgICAgICAgICAgY3VycmVudFNwZWVkID0gMC41ZiArIChwcm9ncmVzcyAvIDIwLjBmKSAqIDEuNWYKICAgICAgICAgICAgfQogICAgICAgICAgICBvdmVycmlkZSBmdW4gb25TdGFydFRyYWNraW5nVG91Y2goc2Vla0JhcjogU2Vla0Jhcj8pIHt9CiAgICAgICAgICAgIG92ZXJyaWRlIGZ1biBvblN0b3BUcmFja2luZ1RvdWNoKHNlZWtCYXI6IFNlZWtCYXI/KSB7CiAgICAgICAgICAgICAgICB0dHNNYW5hZ2VyLnNldFNwZWVkKGN1cnJlbnRTcGVlZCkKICAgICAgICAgICAgfQogICAgICAgIH0pCiAgICB9CgogICAgcHJpdmF0ZSBmdW4gbG9hZFBkZlRleHQodXJpOiBVcmkpIHsKICAgICAgICB0dlN0YXR1cy50ZXh0ID0gIuCkj+CkhuCkiCDgpKHgpYDgpKog4KS44KWN4KSV4KWI4KSoOiDgpKrgpYDgpKHgpYDgpI/gpKsg4KSV4KS+IOCkteCkv+CktuCljeCksuClh+Ckt+CkoyDgpJXgpL/gpK/gpL4g4KSc4KS+IOCksOCkueCkviDgpLngpYguLi4iCiAgICAgICAgbGlmZWN5Y2xlU2NvcGUubGF1bmNoIHsKICAgICAgICAgICAgdmFsIGV4dHJhY3RlZFRleHQgPSBQREZFeHRyYWN0b3IuZXh0cmFjdFRleHQodGhpc0BNYWluQWN0aXZpdHksIHVyaSkKICAgICAgICAgICAgZXRHaXRhVGV4dC5zZXRUZXh0KGV4dHJhY3RlZFRleHQpCiAgICAgICAgICAgIHR2U3RhdHVzLnRleHQgPSAi4KS44KWN4KSl4KS/4KSk4KS/OiDgpKrgpYDgpKHgpYDgpI/gpKsg4KS44KSr4KSy4KSk4KS+4KSq4KWC4KSw4KWN4KS14KSVIOCkh+CkruCljeCkquCli+CksOCljeCknyDgpLngpYsg4KSX4KSIISIKICAgICAgICB9CiAgICB9CgogICAgb3ZlcnJpZGUgZnVuIG9uRGVzdHJveSgpIHsKICAgICAgICBzdXBlci5vbkRlc3Ryb3koKQogICAgICAgIHR0c01hbmFnZXIuc2h1dGRvd24oKQogICAgfQp9Cg==" | base64 -d > app/src/main/java/com/zeeshan/audio/MainActivity.kt
 
       - name: 9. Write Production Security Manifest (AndroidManifest.xml)
         run: |
@@ -558,7 +226,6 @@ jobs:
                   }
               }
 
-              // FIX: Java aur Kotlin dono ko same target (17) par set kiya
               compileOptions {
                   sourceCompatibility JavaVersion.VERSION_17
                   targetCompatibility JavaVersion.VERSION_17
