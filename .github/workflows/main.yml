@@ -18,6 +18,12 @@ jobs:
           java-version: '17'
           distribution: 'temurin'
 
+      # यहाँ हमने सीधे ग्रैडल 8.5 को लॉक कर दिया है ताकि 9.6.1 वाला क्रैश कभी न आए
+      - name: 2.5 Setup Fixed Gradle 8.5 Engine
+        uses: gradle/actions/setup-gradle@v4
+        with:
+          gradle-version: '8.5'
+
       - name: 3. Create Android Directory Structure
         run: |
           mkdir -p app/src/main/java/com/zeeshan/audio/engine
@@ -28,7 +34,6 @@ jobs:
 
       - name: 4. Design Premium Black-Green-White Identity & Vectors
         run: |
-          # ऐप का नाम और डिफ़ॉल्ट स्ट्रिंग्स
           cat << 'EOF' > app/src/main/res/values/strings.xml
           <?xml version="1.0" encoding="utf-8"?>
           <resources>
@@ -36,7 +41,6 @@ jobs:
           </resources>
           EOF
 
-          # स्टूडियो डार्क, मैट्रिक्स ग्रीन और प्योर वाइट कलर्स का प्रीमियम मिश्रण
           cat << 'EOF' > app/src/main/res/values/colors.xml
           <?xml version="1.0" encoding="utf-8"?>
           <resources>
@@ -49,7 +53,6 @@ jobs:
           </resources>
           EOF
 
-          # थीम क्रैश प्रिवेंशन फ़ाइल
           cat << 'EOF' > app/src/main/res/values/themes.xml
           <?xml version="1.0" encoding="utf-8"?>
           <resources>
@@ -61,65 +64,23 @@ jobs:
           </resources>
           EOF
 
-          # अलजेब्रा और ज्योमेट्री द्वारा निर्मित 'Z + Audio Wave' लोगो (काला, हरा, सफेद मिश्रण)
           cat << 'EOF' > app/src/main/res/drawable/app_icon.xml
           <?xml version="1.0" encoding="utf-8"?>
           <vector xmlns:android="http://schemas.android.com/apk/res/android"
-              android:width="512dp"
-              android:height="512dp"
-              android:viewportWidth="100"
-              android:viewportHeight="100">
-
-              <path
-                  android:pathData="M50,50m-46,0a46,46 0,1 1,92 0a46,46 0,1 1,-92 0"
-                  android:fillColor="#0A0F0D"/>
-
-              <path
-                  android:pathData="M50,50m-44,0a44,44 0,1 1,88 0a44,44 0,1 1,-88 0"
-                  android:strokeColor="#00C853"
-                  android:strokeWidth="2.5"
-                  android:fillColor="#00000000"/>
-              <path
-                  android:pathData="M50,50m-41,0a41,41 0,1 1,82 0a41,41 0,1 1,-82 0"
-                  android:strokeColor="#FFFFFF"
-                  android:strokeWidth="0.8"
-                  android:fillColor="#00000000"/>
-
-              <path
-                  android:pathData="M34,24 L66,24 L66,31 L45,53 L66,53 L66,60 L34,60 L34,53 L55,31 L34,31 Z"
-                  android:fillColor="#FFFFFF"
-                  android:strokeColor="#00C853"
-                  android:strokeWidth="1"/>
-
-              <path
-                  android:pathData="M50,67 L50,83"
-                  android:strokeColor="#FFFFFF"
-                  android:strokeWidth="3.5"
-                  android:strokeLineCap="round"/>
-              <path
-                  android:pathData="M43,70 L43,80"
-                  android:strokeColor="#00C853"
-                  android:strokeWidth="3"
-                  android:strokeLineCap="round"/>
-              <path
-                  android:pathData="M57,70 L57,80"
-                  android:strokeColor="#00C853"
-                  android:strokeWidth="3"
-                  android:strokeLineCap="round"/>
-              <path
-                  android:pathData="M36,73 L36,77"
-                  android:strokeColor="#FFFFFF"
-                  android:strokeWidth="2.5"
-                  android:strokeLineCap="round"/>
-              <path
-                  android:pathData="M64,73 L64,77"
-                  android:strokeColor="#FFFFFF"
-                  android:strokeWidth="2.5"
-                  android:strokeLineCap="round"/>
+              android:width="512dp" android:height="512dp"
+              android:viewportWidth="100" android:viewportHeight="100">
+              <path android:pathData="M50,50m-46,0a46,46 0,1 1,92 0a46,46 0,1 1,-92 0" android:fillColor="#0A0F0D"/>
+              <path android:pathData="M50,50m-44,0a44,44 0,1 1,88 0a44,44 0,1 1,-88 0" android:strokeColor="#00C853" android:strokeWidth="2.5" android:fillColor="#00000000"/>
+              <path android:pathData="M50,50m-41,0a41,41 0,1 1,82 0a41,41 0,1 1,-82 0" android:strokeColor="#FFFFFF" android:strokeWidth="0.8" android:fillColor="#00000000"/>
+              <path android:pathData="M34,24 L66,24 L66,31 L45,53 L66,53 L66,60 L34,60 L34,53 L55,31 L34,31 Z" android:fillColor="#FFFFFF" android:strokeColor="#00C853" android:strokeWidth="1"/>
+              <path android:pathData="M50,67 L50,83" android:strokeColor="#FFFFFF" android:strokeWidth="3.5" android:strokeLineCap="round"/>
+              <path android:pathData="M43,70 L43,80" android:strokeColor="#00C853" android:strokeWidth="3" android:strokeLineCap="round"/>
+              <path android:pathData="M57,70 L57,80" android:strokeColor="#00C853" android:strokeWidth="3" android:strokeLineCap="round"/>
+              <path android:pathData="M36,73 L36,77" android:strokeColor="#FFFFFF" android:strokeWidth="2.5" android:strokeLineCap="round"/>
+              <path android:pathData="M64,73 L64,77" android:strokeColor="#FFFFFF" android:strokeWidth="2.5" android:strokeLineCap="round"/>
           </vector>
           EOF
 
-          # इनपुट फील्ड के लिए मैट्रिक्स ग्रीन ग्लोइंग बॉर्डर डार्क बैकग्राउंड के साथ
           cat << 'EOF' > app/src/main/res/drawable/neon_input_border.xml
           <?xml version="1.0" encoding="utf-8"?>
           <shape xmlns:android="http://schemas.android.com/apk/res/android">
@@ -393,7 +354,7 @@ jobs:
           }
           EOF
 
-      - name: 8. Build Optimized App Controller (MainActivity.kt - Fixed Path Bug)
+      - name: 8. Build Optimized App Controller (MainActivity.kt)
         run: |
           cat << 'EOF' > app/src/main/java/com/zeeshan/audio/MainActivity.kt
           package com.zeeshan.audio
@@ -610,11 +571,10 @@ jobs:
           }
           EOF
 
+      # स्टेप 11 को पूरी तरह बदल दिया गया है, अब यह बिना क्रैश हुए डायरेक्ट ग्रैडल 8.5 इंजन पर रन होगा
       - name: 11. Run Build Engine & Compile Secure APK
         run: |
-          gradle wrapper --gradle-version 8.5
-          chmod +x gradlew
-          ./gradlew assembleDebug
+          gradle assembleDebug
 
       - name: 12. Deliver Final Artifact Package to User Storage
         uses: actions/upload-artifact@v4
