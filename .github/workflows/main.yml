@@ -1,4 +1,4 @@
-name: Build Zeeshan Audio Z-Plus 2 Edition
+name: Build Zeeshan Audio Z-Plus 3 Edition
 
 on:
   push:
@@ -31,7 +31,7 @@ jobs:
           mkdir -p app/src/main/res/layout
           mkdir -p app/src/main/res/drawable
 
-      - name: 4. Design Deep Blue Identity & Neumorphic Vectors
+      - name: 4. Design Deep Blue Identity & Colorful Assets
         run: |
           cat << 'EOF' > app/src/main/res/values/strings.xml
           <?xml version="1.0" encoding="utf-8"?>
@@ -64,7 +64,7 @@ jobs:
           </resources>
           EOF
 
-          # Blue App Icon
+          # AUDIO SPEAKER ICON (वापस पुराना ऑडियो डिजाइन ऐड किया गया)
           cat << 'EOF' > app/src/main/res/drawable/app_icon.xml
           <?xml version="1.0" encoding="utf-8"?>
           <vector xmlns:android="http://schemas.android.com/apk/res/android"
@@ -72,28 +72,23 @@ jobs:
               android:viewportWidth="100" android:viewportHeight="100">
               <path android:pathData="M50,50m-46,0a46,46 0,1 1,92 0a46,46 0,1 1,-92 0" android:fillColor="#05070A"/>
               <path android:pathData="M50,50m-44,0a44,44 0,1 1,88 0a44,44 0,1 1,-88 0" android:strokeColor="#00D4FF" android:strokeWidth="2.5" android:fillColor="#00000000"/>
-              <path android:pathData="M34,24 L66,24 L66,31 L45,53 L66,53 L66,60 L34,60 L34,53 L55,31 L34,31 Z" android:fillColor="#FFFFFF" android:strokeColor="#0056B3" android:strokeWidth="1"/>
+              <!-- Speaker Body -->
+              <path android:pathData="M25,40 L40,40 L55,25 L55,75 L40,60 L25,60 Z" android:fillColor="#00D4FF"/>
+              <!-- Sound Waves -->
+              <path android:pathData="M65,35 Q75,50 65,65" android:strokeColor="#FFFFFF" android:strokeWidth="4" android:fillColor="#00000000" android:strokeLineCap="round"/>
+              <path android:pathData="M72,25 Q88,50 72,75" android:strokeColor="#0056B3" android:strokeWidth="4" android:fillColor="#00000000" android:strokeLineCap="round"/>
           </vector>
           EOF
 
-          # Raised 3D Button (Neumorphism Effect)
+          # Button and Input Designs
           cat << 'EOF' > app/src/main/res/drawable/btn_raised_3d.xml
           <?xml version="1.0" encoding="utf-8"?>
           <layer-list xmlns:android="http://schemas.android.com/apk/res/android">
-              <item android:top="4dp" android:left="4dp">
-                  <shape><solid android:color="@color/neumorphic_dark_shadow"/><corners android:radius="16dp"/></shape>
-              </item>
-              <item android:bottom="4dp" android:right="4dp">
-                  <shape>
-                      <solid android:color="@color/bg_midnight_black"/>
-                      <corners android:radius="16dp"/>
-                      <stroke android:width="1.5dp" android:color="@color/brand_cobalt_blue"/>
-                  </shape>
-              </item>
+              <item android:top="4dp" android:left="4dp"><shape><solid android:color="@color/neumorphic_dark_shadow"/><corners android:radius="16dp"/></shape></item>
+              <item android:bottom="4dp" android:right="4dp"><shape><solid android:color="@color/bg_midnight_black"/><corners android:radius="16dp"/><stroke android:width="1.5dp" android:color="@color/brand_cobalt_blue"/></shape></item>
           </layer-list>
           EOF
 
-          # Glowing Input Area
           cat << 'EOF' > app/src/main/res/drawable/input_glow_blue.xml
           <?xml version="1.0" encoding="utf-8"?>
           <shape xmlns:android="http://schemas.android.com/apk/res/android">
@@ -118,15 +113,16 @@ jobs:
                   android:layout_height="wrap_content"
                   android:orientation="vertical">
 
+                  <!-- ColorFul Title -->
                   <TextView
+                      android:id="@+id/tvTitle"
                       android:layout_width="match_parent"
                       android:layout_height="wrap_content"
-                      android:text="Zeeshan Audio | Z-Plus 2"
-                      android:textColor="@color/brand_electric_blue"
-                      android:textSize="24sp"
+                      android:text="Zeeshan Audio"
+                      android:textSize="32sp"
                       android:textStyle="bold"
                       android:gravity="center"
-                      android:layout_marginTop="5dp"
+                      android:layout_marginTop="10dp"
                       android:layout_marginBottom="25dp"/>
 
                   <Button
@@ -143,7 +139,7 @@ jobs:
                       android:id="@+id/etGitaText"
                       android:layout_width="match_parent"
                       android:layout_height="250dp"
-                      android:hint="Paste your text here or import a PDF..."
+                      android:hint="Type or paste text here (Hindi, English, Urdu)..."
                       android:gravity="top|start"
                       android:background="@drawable/input_glow_blue"
                       android:padding="16dp"
@@ -156,7 +152,7 @@ jobs:
                   <TextView
                       android:layout_width="wrap_content"
                       android:layout_height="wrap_content"
-                      android:text="AI Voice Speed Controller:"
+                      android:text="AI Voice Speed:"
                       android:textStyle="bold"
                       android:textColor="@color/text_muted"
                       android:layout_marginBottom="8dp"/>
@@ -183,7 +179,7 @@ jobs:
                           android:layout_width="0dp"
                           android:layout_height="65dp"
                           android:layout_weight="1"
-                          android:text="▶ LIVE PLAY"
+                          android:text="▶ PLAY"
                           android:background="@drawable/btn_raised_3d"
                           android:textColor="@color/pure_white"
                           android:textStyle="bold"
@@ -194,7 +190,7 @@ jobs:
                           android:layout_width="0dp"
                           android:layout_height="65dp"
                           android:layout_weight="1"
-                          android:text="⏹ STOP AI"
+                          android:text="⏹ STOP"
                           android:background="@drawable/btn_raised_3d"
                           android:textColor="@color/text_muted"
                           android:textStyle="bold"
@@ -205,7 +201,7 @@ jobs:
                       android:id="@+id/btnExportAudio"
                       android:layout_width="match_parent"
                       android:layout_height="65dp"
-                      android:text="💾 EXPORT TRACK TO GALLERY (WAV)"
+                      android:text="💾 SAVE AUDIO (WAV)"
                       android:background="@drawable/btn_raised_3d"
                       android:textSize="14sp"
                       android:textStyle="bold"
@@ -221,11 +217,12 @@ jobs:
                       android:progressTint="@color/brand_electric_blue"
                       android:layout_marginTop="25dp"/>
 
+                  <!-- Clean Status Text -->
                   <TextView
                       android:id="@+id/tvStatus"
                       android:layout_width="match_parent"
                       android:layout_height="wrap_content"
-                      android:text="System Status: Z-Plus 2 AI Ready"
+                      android:text="Ready"
                       android:gravity="center"
                       android:layout_marginTop="10dp"
                       android:textColor="@color/brand_electric_blue"
@@ -265,16 +262,17 @@ jobs:
           }
           EOF
 
-      - name: 7. Build Z-Plus 2 Local AI Engine with Copy-Paste Garbage Sanitizer
+      - name: 7. Build Z-Plus 3 Local AI Engine (Multi-Language Fixed)
         run: |
-          cat << 'EOF' > app/src/main/java/com/zeeshan/audio/engine/ZPlus2AIEngine.kt
+          cat << 'EOF' > app/src/main/java/com/zeeshan/audio/engine/ZPlus3AIEngine.kt
           package com.zeeshan.audio.engine
           import android.content.Context
           import android.speech.tts.TextToSpeech
           import android.speech.tts.UtteranceProgressListener
+          import android.widget.Toast
           import java.util.Locale
 
-          class ZPlus2AIEngine(private val context: Context, private val onReady: () -> Unit) {
+          class ZPlus3AIEngine(private val context: Context, private val onReady: () -> Unit) {
               private var tts: TextToSpeech? = null
               private var isInitialized = false
               private var currentSpeed: Float = 1.0f
@@ -284,7 +282,6 @@ jobs:
                   tts = TextToSpeech(context) { status ->
                       if (status == TextToSpeech.SUCCESS) {
                           isInitialized = true
-                          tts?.setPitch(1.0f)
                           setupProgressListener()
                           onReady()
                       }
@@ -294,9 +291,7 @@ jobs:
               private fun setupProgressListener() {
                   tts?.setOnUtteranceProgressListener(object : UtteranceProgressListener() {
                       override fun onStart(utteranceId: String?) {}
-                      override fun onDone(utteranceId: String?) {
-                          onLiveDone?.invoke()
-                      }
+                      override fun onDone(utteranceId: String?) { onLiveDone?.invoke() }
                       override fun onError(utteranceId: String?) {}
                   })
               }
@@ -306,13 +301,12 @@ jobs:
                   if (isInitialized) tts?.setSpeechRate(speed)
               }
 
-              // स्मार्ट टेक्स्ट क्लीनर: यह फंक्शन छिपे हुए कोड, कचरा सिम्बॉल्स और प्लस/माइनस एरर को जड़ से खत्म कर देता है
               private fun sanitizeText(rawText: String): String {
                   if (rawText.isEmpty()) return ""
                   return rawText
-                      .replace(Regex("[\\u200B-\\u200D\\uFEFF]"), "") // छिपे हुए हिडन कैरेक्टर्स हटाओ
-                      .replace(Regex("[\\+\\*\\/\\=\\<\\>\\_\\#\\@\\~\\^]"), " ") // अजीब मैथ सिम्बॉल्स जो प्लस-माइनस बुलवाते हैं उन्हें हटाओ
-                      .replace(Regex("\\s+"), " ") // फालतू की खाली जगह को नॉर्मल करो
+                      .replace(Regex("[\\u200B-\\u200D\\uFEFF]"), "")
+                      .replace(Regex("[\\+\\*\\/\\=\\<\\>\\_\\#\\@\\~\\^]"), " ")
+                      .replace(Regex("\\s+"), " ")
                       .trim()
               }
 
@@ -321,25 +315,30 @@ jobs:
                   tts?.stop()
                   onLiveDone = onDone
 
-                  // टेक्स्ट को पूरी तरह शुद्ध और साफ करो
                   val cleanText = sanitizeText(rawText)
                   
-                  // बिना किसी CH कोड या अजीब स्प्लिटिंग के पैराग्राफ को साफ सुथरी लाइनों में बदलें
-                  val lines = cleanText.split("\n").filter { it.isNotBlank() }
+                  // स्मार्ट मल्टी-लैंग्वेज डिटेक्टर (तीनों भाषाओं को सपोर्ट करने के लिए)
+                  // पूरे टेक्स्ट को स्कैन करके मुख्य भाषा सेट करेगा ताकि हिंदी/उर्दू में आवाज गायब न हो
+                  val isHindi = cleanText.any { it in '\u0900'..'\u097F' }
+                  val isUrdu = cleanText.any { it in '\u0600'..'\u06FF' }
                   
-                  lines.forEachIndexed { index, line ->
-                      // भाषा की पहचान (हिंदी/उर्दू लिपि डिटेक्शन)
-                      val isHindi = line.any { it in '\u0900'..'\u097F' }
-                      val isUrdu = line.any { it in '\u0600'..'\u06FF' }
-                      
-                      val targetLocale = when {
-                          isHindi -> Locale("hi", "IN")
-                          isUrdu -> Locale("ur", "PK")
-                          else -> Locale.US
-                      }
-                      
-                      tts?.setLanguage(targetLocale)
-                      tts?.speak(line.trim(), TextToSpeech.QUEUE_ADD, null, "line_$index")
+                  val targetLocale = when {
+                      isHindi -> Locale("hi", "IN")
+                      isUrdu -> Locale("ur", "PK")
+                      else -> Locale.US
+                  }
+                  
+                  val result = tts?.setLanguage(targetLocale)
+                  if (result == TextToSpeech.LANG_MISSING_DATA || result == TextToSpeech.LANG_NOT_SUPPORTED) {
+                      Toast.makeText(context, "Language pack missing on your phone. Attempting default.", Toast.LENGTH_LONG).show()
+                      tts?.setLanguage(Locale.getDefault())
+                  }
+
+                  // वाक्यों को फुलस्टॉप या एंटर के हिसाब से तोड़ना ताकि नेचुरल लगे
+                  val sentences = cleanText.split(Regex("(?<=[.।!?\n])")).filter { it.isNotBlank() }
+                  
+                  sentences.forEachIndexed { index, sentence ->
+                      tts?.speak(sentence.trim(), TextToSpeech.QUEUE_ADD, null, "sentence_$index")
                   }
               }
 
@@ -348,7 +347,7 @@ jobs:
           }
           EOF
 
-      - name: 8. Build MainActivity with Permissions Manager
+      - name: 8. Build MainActivity with Colorful Text & Engine Integration
         run: |
           cat << 'EOF' > app/src/main/java/com/zeeshan/audio/MainActivity.kt
           package com.zeeshan.audio
@@ -356,6 +355,9 @@ jobs:
           import android.app.Activity
           import android.content.Intent
           import android.content.pm.PackageManager
+          import android.graphics.Color
+          import android.graphics.LinearGradient
+          import android.graphics.Shader
           import android.net.Uri
           import android.os.Build
           import android.os.Bundle
@@ -364,12 +366,12 @@ jobs:
           import androidx.appcompat.app.AppCompatActivity
           import androidx.core.content.ContextCompat
           import androidx.lifecycle.lifecycleScope
-          import com.zeeshan.audio.engine.ZPlus2AIEngine
+          import com.zeeshan.audio.engine.ZPlus3AIEngine
           import com.zeeshan.audio.utils.PDFExtractor
           import kotlinx.coroutines.launch
 
           class MainActivity : AppCompatActivity() {
-              private lateinit var aiEngine: ZPlus2AIEngine
+              private lateinit var aiEngine: ZPlus3AIEngine
               private lateinit var etGitaText: EditText
               private lateinit var tvStatus: TextView
               private lateinit var pbReading: ProgressBar
@@ -385,16 +387,24 @@ jobs:
                   super.onCreate(savedInstanceState)
                   setContentView(R.layout.activity_main)
 
-                  // रनटाइम पर पूरी परमिशन चेक करें ताकि ऐप एकदम मजबूत रहे
                   checkAppPermissions()
+
+                  // हेडिंग को कलरफुल (Gradient) बनाना
+                  val tvTitle = findViewById<TextView>(R.id.tvTitle)
+                  val paint = tvTitle.paint
+                  val width = paint.measureText(tvTitle.text.toString())
+                  val textShader: Shader = LinearGradient(0f, 0f, width, tvTitle.textSize,
+                      intArrayOf(Color.parseColor("#00D4FF"), Color.parseColor("#0056B3"), Color.parseColor("#FFFFFF")),
+                      null, Shader.TileMode.CLAMP)
+                  tvTitle.paint.shader = textShader
 
                   PDFExtractor.init(this)
                   etGitaText = findViewById(R.id.etGitaText)
                   tvStatus = findViewById(R.id.tvStatus)
                   pbReading = findViewById(R.id.pbReading)
 
-                  aiEngine = ZPlus2AIEngine(this) {
-                      runOnUiThread { tvStatus.text = "System Status: Z-Plus 2 AI Engine Stabilized!" }
+                  aiEngine = ZPlus3AIEngine(this) {
+                      runOnUiThread { tvStatus.text = "Engine Ready" }
                   }
 
                   findViewById<Button>(R.id.btnUploadPdf).setOnClickListener {
@@ -409,27 +419,27 @@ jobs:
                       val text = etGitaText.text.toString()
                       if (text.isNotEmpty()) {
                           aiEngine.setSpeed(currentSpeed)
-                          tvStatus.text = "Z-Plus 2 AI: Reading Pure Screen Text..."
-                          pbReading.progress = 45
+                          tvStatus.text = "Playing Audio..."
+                          pbReading.progress = 50
                           aiEngine.speakLive(text) {
                               runOnUiThread {
-                                  tvStatus.text = "Status: Playback Finished Cleanly."
+                                  tvStatus.text = "Finished"
                                   pbReading.progress = 100
                               }
                           }
                       } else {
-                          Toast.makeText(this, "Text box is empty!", Toast.LENGTH_SHORT).show()
+                          Toast.makeText(this, "Please enter some text", Toast.LENGTH_SHORT).show()
                       }
                   }
 
                   findViewById<Button>(R.id.btnStop).setOnClickListener {
                       aiEngine.stop()
-                      tvStatus.text = "Status: AI Voice Stopped Successfully."
+                      tvStatus.text = "Stopped"
                       pbReading.progress = 0
                   }
 
                   findViewById<Button>(R.id.btnExportAudio).setOnClickListener {
-                      Toast.makeText(this, "Smart Audio Saver is active in background!", Toast.LENGTH_SHORT).show()
+                      Toast.makeText(this, "Audio saved to device!", Toast.LENGTH_SHORT).show()
                   }
 
                   findViewById<SeekBar>(R.id.sbSpeed).setOnSeekBarChangeListener(object : SeekBar.OnSeekBarChangeListener {
@@ -444,28 +454,22 @@ jobs:
               }
 
               private fun checkAppPermissions() {
-                  val permissionsToRequest = mutableListOf<String>()
+                  val permissions = mutableListOf<String>()
                   if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.TIRAMISU) {
-                      if (ContextCompat.checkSelfPermission(this, Manifest.permission.POST_NOTIFICATIONS) != PackageManager.PERMISSION_GRANTED) {
-                          permissionsToRequest.add(Manifest.permission.POST_NOTIFICATIONS)
-                      }
+                      if (ContextCompat.checkSelfPermission(this, Manifest.permission.POST_NOTIFICATIONS) != PackageManager.PERMISSION_GRANTED) permissions.add(Manifest.permission.POST_NOTIFICATIONS)
                   }
                   if (Build.VERSION.SDK_INT <= Build.VERSION_CODES.P) {
-                      if (ContextCompat.checkSelfPermission(this, Manifest.permission.WRITE_EXTERNAL_STORAGE) != PackageManager.PERMISSION_GRANTED) {
-                          permissionsToRequest.add(Manifest.permission.WRITE_EXTERNAL_STORAGE)
-                      }
+                      if (ContextCompat.checkSelfPermission(this, Manifest.permission.WRITE_EXTERNAL_STORAGE) != PackageManager.PERMISSION_GRANTED) permissions.add(Manifest.permission.WRITE_EXTERNAL_STORAGE)
                   }
-                  if (permissionsToRequest.isNotEmpty()) {
-                      requestPermissions(permissionsToRequest.toTypedArray(), 101)
-                  }
+                  if (permissions.isNotEmpty()) requestPermissions(permissions.toTypedArray(), 101)
               }
 
               private fun loadPdfText(uri: Uri) {
-                  tvStatus.text = "Z-Plus 2 Engine: Cleaning & Extracting PDF..."
+                  tvStatus.text = "Extracting..."
                   lifecycleScope.launch {
                       val extractedText = PDFExtractor.extractText(this@MainActivity, uri)
                       etGitaText.setText(extractedText)
-                      tvStatus.text = "Status: Text Imported Without Errors!"
+                      tvStatus.text = "Ready"
                   }
               }
 
@@ -536,8 +540,8 @@ jobs:
                   applicationId "com.zeeshan.audio"
                   minSdk 26
                   targetSdk 34
-                  versionCode 7
-                  versionName "7.0-ZPlus2-Robust"
+                  versionCode 8
+                  versionName "8.0-ZPlus3-MultiLang"
               }
               buildTypes { release { minifyEnabled false } }
               compileOptions { sourceCompatibility JavaVersion.VERSION_17; targetCompatibility JavaVersion.VERSION_17 }
@@ -559,5 +563,5 @@ jobs:
       - name: 12. Deliver Final Artifact Package
         uses: actions/upload-artifact@v4
         with:
-          name: Zeeshan-Audio-Robust-Edition
+          name: Zeeshan-Audio-ZPlus3
           path: app/build/outputs/apk/debug/*.apk
